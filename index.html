@@ -621,15 +621,15 @@
     <div class="section-label">Get in Touch</div>
     <h2 class="section-title">Ready to see every truck,<br>every second?</h2>
     <p class="contact-sub">Start your 30-day free trial of Traxium, or reach out to learn more about XServ Labs.</p>
-    <div class="contact-form">
+    <form class="contact-form" action="https://formspree.io/f/xpqyojvy" method="POST">
       <div class="form-row">
-        <input type="text" placeholder="Your name">
-        <input type="email" placeholder="Email address">
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Email address" required>
       </div>
-      <input type="text" placeholder="Company name">
-      <textarea placeholder="Tell us about your fleet — how many vehicles, current challenges..."></textarea>
-      <button class="btn-gold">Send Message</button>
-    </div>
+      <input type="text" name="company" placeholder="Company name">
+      <textarea name="message" placeholder="Tell us about your fleet — how many vehicles, current challenges..."></textarea>
+      <button type="submit" class="btn-gold">Send Message</button>
+    </form>
     <div class="contact-links">
       <a href="https://www.traxium.in" class="contact-link" target="_blank">traxium.in</a>
       <a href="https://www.traxium.in" class="contact-link" target="_blank">Start Free Trial →</a>
