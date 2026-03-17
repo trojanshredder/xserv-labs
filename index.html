@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XServ Labs — Software That Moves Industries Forward</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #FAFAF8;
+    --bg-warm: #F5F3EF;
+    --bg-tint: #F0EEEA;
+    --text: #1A1A18;
+    --text-muted: #6B6B65;
+    --text-light: #9C9C95;
+    --accent: #2D2D2A;
+    --accent-warm: #E8690B;
+    --accent-gold: #F97316;
+    --accent-orange-mid: #FB923C;
+    --accent-orange-light: #FDBA74;
+    --accent-green: #3B8C6E;
+    --accent-green-light: #E8F5EE;
+    --accent-blue: #4A7FB5;
+    --accent-blue-light: #EBF2FA;
+    --accent-red: #C0564B;
+    --accent-red-light: #FBEAE8;
+    --border: #E5E3DE;
+    --border-light: #EDECEA;
+    --white: #FFFFFF;
+    --shadow-sm: 0 1px 3px rgba(26,26,24,0.04);
+    --shadow-md: 0 8px 32px rgba(26,26,24,0.06);
+    --shadow-lg: 0 24px 64px rgba(26,26,24,0.08);
+    --shadow-xl: 0 32px 80px rgba(26,26,24,0.1);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 6px;
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: #F97316; color: var(--white); }
+
+  /* ═══════════════ NAV ═══════════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    background: rgba(250,250,248,0.85);
+    border-bottom: 1px solid transparent;
+    transition: all 0.4s ease;
+  }
+  nav.scrolled { padding: 14px 48px; border-bottom-color: var(--border-light); box-shadow: var(--shadow-sm); }
+
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+  .logo-svg { width: 40px; height: 40px; flex-shrink: 0; transition: transform 0.3s ease; }
+  .logo:hover .logo-svg { transform: scale(1.08); }
+  .logo-text { font-family: 'DM Serif Display', serif; font-size: 20px; letter-spacing: -0.3px; }
+
+  /* Vortex logo animations */
+  @keyframes vr1{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+  @keyframes vr2{0%{transform:rotate(0deg)}100%{transform:rotate(-360deg)}}
+  @keyframes vr3{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+  @keyframes vx-breathe{0%,100%{opacity:.85}50%{opacity:1}}
+  @keyframes vp-float{0%{transform:scale(0);opacity:0}50%{transform:scale(1);opacity:.8}100%{transform:scale(0);opacity:0}}
+  .vr1{animation:vr1 12s linear infinite;transform-origin:60px 60px}
+  .vr2{animation:vr2 8s linear infinite;transform-origin:60px 60px}
+  .vr3{animation:vr3 5s linear infinite;transform-origin:60px 60px}
+  .vx-core{animation:vx-breathe 3s ease-in-out infinite;transform-origin:60px 60px}
+  .vp-dot{animation:vp-float 2.5s ease-in-out infinite}
+
+  /* Hero large logo */
+  .hero-logo { width: 140px; height: 140px; margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s ease 0.1s forwards; }
+  .hero-logo .vr1{transform-origin:70px 70px}
+  .hero-logo .vr2{transform-origin:70px 70px}
+  .hero-logo .vr3{transform-origin:70px 70px}
+  .hero-logo .vx-core{transform-origin:70px 70px}
+
+  .nav-links { display: flex; gap: 36px; align-items: center; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-muted); font-size: 14px;
+    font-weight: 500; letter-spacing: 0.3px; transition: color 0.3s ease; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1.5px; background: var(--accent-gold); transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    padding: 10px 24px !important; background: var(--accent) !important;
+    color: var(--white) !important; border-radius: 100px;
+    font-size: 13px !important; font-weight: 500 !important;
+    letter-spacing: 0.5px; transition: all 0.3s ease !important;
+  }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: #F97316 !important; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+  /* ═══════════════ HERO ═══════════════ */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 140px 48px 100px; position: relative;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(249,115,22,0.06) 0%, rgba(253,186,116,0.03) 40%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 20px; background: var(--white); border: 1px solid var(--border);
+    border-radius: 100px; font-size: 13px; color: var(--text-muted);
+    font-weight: 500; margin-bottom: 40px;
+    opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+  .hero-badge .dot { width: 6px; height: 6px; background: #F97316; border-radius: 50%; animation: pulse 2s ease infinite; }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(46px, 6.5vw, 84px);
+    line-height: 1.06; letter-spacing: -2px; max-width: 820px; font-weight: 400;
+    opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+  .hero h1 em { font-style: italic; color: #F97316; }
+
+  .hero-sub {
+    font-size: 18px; color: var(--text-muted); max-width: 520px;
+    margin-top: 28px; font-weight: 300; line-height: 1.8;
+    opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; margin-top: 48px;
+    opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .btn-primary {
+    padding: 16px 36px; background: var(--accent); color: var(--white);
+    border: none; border-radius: 100px; font-family: 'Outfit', sans-serif;
+    font-size: 15px; font-weight: 500; cursor: pointer;
+    transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.3px;
+  }
+  .btn-primary:hover { background: #F97316; transform: translateY(-2px); box-shadow: 0 16px 48px rgba(249,115,22,0.2); }
+
+  .btn-secondary {
+    padding: 16px 36px; background: transparent; color: var(--text);
+    border: 1.5px solid var(--border); border-radius: 100px;
+    font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 500;
+    cursor: pointer; transition: all 0.3s ease; text-decoration: none;
+  }
+  .btn-secondary:hover { border-color: var(--accent); background: var(--white); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; display: flex; flex-direction: column;
+    align-items: center; gap: 8px; color: var(--text-light);
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    opacity: 0; animation: fadeUp 0.8s ease 1.2s forwards;
+  }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--border), transparent); animation: scrollPulse 2s ease infinite; }
+
+  /* ═══════════════ SECTION COMMON ═══════════════ */
+  section { padding: 120px 48px; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent-gold); margin-bottom: 20px; font-weight: 500;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.15; letter-spacing: -1px; max-width: 600px;
+  }
+
+  /* ═══════════════ ABOUT ═══════════════ */
+  .about { background: var(--white); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+
+  .about-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .about-text p {
+    color: var(--text-muted); font-size: 16px; line-height: 1.9;
+    margin-top: 28px; font-weight: 300;
+  }
+
+  .about-values { display: flex; flex-direction: column; gap: 20px; }
+  .value-card {
+    padding: 28px 32px; background: var(--bg); border-radius: var(--radius);
+    border: 1px solid var(--border-light); transition: all 0.4s ease;
+    display: flex; gap: 20px; align-items: flex-start;
+  }
+  .value-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--border); }
+  .value-icon {
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; border: 1px solid var(--border-light);
+  }
+  .vi-green { background: var(--accent-green-light); }
+  .vi-blue { background: var(--accent-blue-light); }
+  .vi-gold { background: #FDF6E8; }
+  .value-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.2px; }
+  .value-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 300; }
+
+  /* ═══════════════ PRODUCT SHOWCASE ═══════════════ */
+  .showcase { max-width: 1100px; margin: 0 auto; padding: 120px 48px; }
+
+  .showcase-header { text-align: center; margin-bottom: 80px; }
+  .showcase-header .section-title { margin: 0 auto; }
+  .showcase-header p { color: var(--text-muted); font-size: 16px; margin-top: 20px; font-weight: 300; max-width: 540px; margin-left: auto; margin-right: auto; }
+
+  .product-preview {
+    background: var(--white); border-radius: 20px; border: 1px solid var(--border);
+    overflow: hidden; box-shadow: var(--shadow-xl); position: relative;
+  }
+  .preview-toolbar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 16px 24px; background: var(--bg); border-bottom: 1px solid var(--border-light);
+  }
+  .toolbar-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .toolbar-dot:nth-child(1) { background: #F87171; }
+  .toolbar-dot:nth-child(2) { background: #FBBF24; }
+  .toolbar-dot:nth-child(3) { background: #34D399; }
+  .toolbar-url {
+    margin-left: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--text-light); background: var(--white); padding: 6px 16px;
+    border-radius: 8px; border: 1px solid var(--border-light); flex: 1; max-width: 300px;
+  }
+  .toolbar-badge {
+    margin-left: auto; font-size: 11px; font-weight: 600; color: var(--accent-green);
+    background: var(--accent-green-light); padding: 4px 12px; border-radius: 100px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .toolbar-badge .live-dot { width: 5px; height: 5px; background: var(--accent-green); border-radius: 50%; animation: pulse 1.5s ease infinite; }
+
+  .preview-body { padding: 36px; min-height: 440px; display: grid; grid-template-columns: 200px 1fr; gap: 28px; }
+
+  .preview-sidebar { border-right: 1px solid var(--border-light); padding-right: 28px; }
+  .sidebar-section { margin-bottom: 24px; }
+  .sidebar-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-light); margin-bottom: 10px; font-weight: 600; }
+  .sidebar-item {
+    display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+    border-radius: 8px; font-size: 13px; color: var(--text-muted);
+    margin-bottom: 3px; cursor: default; transition: all 0.2s ease;
+  }
+  .sidebar-item:hover { background: var(--bg); color: var(--text); }
+  .sidebar-item.active { background: var(--accent); color: var(--white); }
+  .sidebar-icon { width: 16px; font-size: 11px; text-align: center; }
+
+  .preview-main { padding-top: 0; }
+  .main-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .main-top h3 { font-family: 'DM Serif Display', serif; font-size: 20px; letter-spacing: -0.5px; }
+  .vehicle-count { font-size: 12px; color: var(--text-light); font-weight: 500; background: var(--bg); padding: 5px 14px; border-radius: 100px; border: 1px solid var(--border-light);}
+
+  .fleet-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; }
+  .fleet-table th {
+    text-align: left; font-size: 10px; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--text-light); font-weight: 600;
+    padding: 0 14px 8px; border-bottom: 1px solid var(--border-light);
+  }
+  .fleet-table td {
+    padding: 12px 14px; font-size: 13px; background: var(--bg);
+    border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);
+    transition: all 0.2s ease;
+  }
+  .fleet-table tr:hover td { background: var(--bg-warm); }
+  .fleet-table td:first-child { border-radius: 8px 0 0 8px; border-left: 1px solid var(--border-light); }
+  .fleet-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid var(--border-light); }
+
+  .truck-id { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: var(--text); }
+  .route-text { color: var(--text-muted); font-weight: 400; }
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600;
+  }
+  .status-moving { background: var(--accent-green-light); color: var(--accent-green); }
+  .status-halted { background: var(--accent-red-light); color: var(--accent-red); }
+  .status-loading { background: #FEF3C7; color: #92400E; }
+  .status-dot { width: 5px; height: 5px; border-radius: 50%; }
+  .status-moving .status-dot { background: var(--accent-green); animation: pulse 1.5s ease infinite; }
+  .status-halted .status-dot { background: var(--accent-red); }
+  .status-loading .status-dot { background: #D97706; }
+
+  .eta-text { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text); }
+  .eta-risk { color: var(--accent-red); font-weight: 600; }
+
+  .tat-bar-wrap { width: 80px; height: 5px; background: var(--border-light); border-radius: 100px; overflow: hidden; }
+  .tat-bar { height: 100%; border-radius: 100px; transition: width 1s ease; }
+  .tat-green { background: var(--accent-green); }
+  .tat-yellow { background: #D97706; }
+  .tat-red { background: var(--accent-red); }
+
+  /* Features Row */
+  .features-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+  .feature-card {
+    padding: 36px; background: var(--white); border: 1px solid var(--border-light);
+    border-radius: var(--radius); transition: all 0.4s ease;
+  }
+  .feature-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--border); }
+  .feature-icon {
+    width: 44px; height: 44px; background: var(--bg); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 20px; border: 1px solid var(--border-light);
+  }
+  .feature-card h4 { font-family: 'DM Serif Display', serif; font-size: 20px; margin-bottom: 10px; letter-spacing: -0.3px; }
+  .feature-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
+
+  .features-row-2 { margin-top: 24px; }
+
+  /* ═══════════════ CONTACT ═══════════════ */
+  .contact { background: var(--accent); color: var(--white); text-align: center; padding: 120px 48px; }
+  .contact .section-label { color: var(--accent-gold); }
+  .contact .section-title { color: var(--white); margin: 0 auto 20px; }
+  .contact-sub { color: rgba(255,255,255,0.5); font-size: 16px; font-weight: 300; max-width: 460px; margin: 0 auto 48px; }
+
+  .contact-form { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: flex; gap: 16px; }
+  .contact-form input, .contact-form textarea {
+    width: 100%; padding: 16px 20px; background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-sm);
+    color: var(--white); font-family: 'Outfit', sans-serif; font-size: 14px;
+    font-weight: 400; outline: none; transition: all 0.3s ease;
+  }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent-gold); background: rgba(255,255,255,0.1); }
+  .contact-form textarea { min-height: 120px; resize: vertical; }
+
+  .btn-gold {
+    padding: 16px 36px; background: #F97316; color: var(--white);
+    border: none; border-radius: 100px; font-family: 'Outfit', sans-serif;
+    font-size: 15px; font-weight: 500; cursor: pointer;
+    transition: all 0.3s ease; letter-spacing: 0.3px; margin-top: 8px;
+  }
+  .btn-gold:hover { background: #E8690B; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(249,115,22,0.3); }
+
+  .contact-links {
+    display: flex; justify-content: center; gap: 32px; margin-top: 32px;
+    padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .contact-link {
+    font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none;
+    transition: color 0.3s ease; font-weight: 400;
+  }
+  .contact-link:hover { color: var(--accent-gold); }
+
+  /* ═══════════════ FOOTER ═══════════════ */
+  footer {
+    padding: 48px; display: flex; justify-content: space-between;
+    align-items: center; border-top: 1px solid var(--border-light);
+  }
+  .footer-text { font-size: 13px; color: var(--text-light); font-weight: 400; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: var(--text-light); text-decoration: none; transition: color 0.3s ease; }
+  .footer-links a:hover { color: var(--text); }
+
+  /* ═══════════════ ANIMATIONS ═══════════════ */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  @keyframes scrollPulse { 0%, 100% { opacity: 0.3; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.2); } }
+
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ═══════════════ RESPONSIVE ═══════════════ */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { gap: 20px; }
+    .nav-links li:not(:last-child) { display: none; }
+    section, .showcase { padding: 80px 24px; }
+    .hero { padding: 120px 24px 80px; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .preview-body { grid-template-columns: 1fr; }
+    .preview-sidebar { border-right: none; border-bottom: 1px solid var(--border-light); padding-right: 0; padding-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .preview-sidebar .sidebar-section { margin-bottom: 0; }
+    .features-row { grid-template-columns: 1fr; }
+    .form-row { flex-direction: column; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .fleet-table { font-size: 12px; }
+    .contact-links { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="logo">
+    <svg class="logo-svg" viewBox="0 0 120 120">
+      <g class="vr1"><circle cx="60" cy="60" r="54" fill="none" stroke="#F97316" stroke-width="1" opacity=".14" stroke-dasharray="10 16"/><circle cx="60" cy="6" r="2.5" fill="#F97316" opacity=".4"/><circle cx="114" cy="60" r="1.5" fill="#F97316" opacity=".3"/></g>
+      <g class="vr2"><circle cx="60" cy="60" r="40" fill="none" stroke="#FB923C" stroke-width="1" opacity=".2" stroke-dasharray="8 12"/><circle cx="60" cy="20" r="2.5" fill="#FB923C" opacity=".5"/></g>
+      <g class="vr3"><circle cx="60" cy="60" r="26" fill="none" stroke="#FDBA74" stroke-width="1.2" opacity=".24" stroke-dasharray="5 8"/><circle cx="60" cy="34" r="3" fill="#FDBA74" opacity=".6"/></g>
+      <circle class="vp-dot" cx="16" cy="22" r="1.5" fill="#F97316"/>
+      <circle class="vp-dot" cx="100" cy="98" r="2" fill="#FB923C" style="animation-delay:.8s"/>
+      <circle class="vp-dot" cx="98" cy="20" r="1.5" fill="#F97316" style="animation-delay:.4s"/>
+      <g class="vx-core"><path d="M40,40 L80,80" stroke="#F97316" stroke-width="9" stroke-linecap="round" fill="none"/><path d="M80,40 L40,80" stroke="#F97316" stroke-width="9" stroke-linecap="round" fill="none"/></g>
+      <circle cx="60" cy="60" r="7" fill="#F97316" opacity=".12"/><circle cx="60" cy="60" r="3.5" fill="#F97316" opacity=".5"/>
+    </svg>
+    <span class="logo-text">XServ Labs</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#product">Traxium</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://www.traxium.in/login.html" class="nav-cta" target="_blank">Try Traxium Free</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="hero-logo" viewBox="0 0 140 140">
+    <g class="vr1" style="transform-origin:70px 70px"><circle cx="70" cy="70" r="65" fill="none" stroke="#F97316" stroke-width=".8" opacity=".12" stroke-dasharray="12 18"/><circle cx="70" cy="5" r="3" fill="#F97316" opacity=".4"/><circle cx="135" cy="70" r="2" fill="#F97316" opacity=".3"/></g>
+    <g class="vr2" style="transform-origin:70px 70px"><circle cx="70" cy="70" r="48" fill="none" stroke="#FB923C" stroke-width=".8" opacity=".18" stroke-dasharray="9 14"/><circle cx="70" cy="22" r="3" fill="#FB923C" opacity=".5"/><circle cx="118" cy="70" r="1.5" fill="#FB923C" opacity=".3"/></g>
+    <g class="vr3" style="transform-origin:70px 70px"><circle cx="70" cy="70" r="32" fill="none" stroke="#FDBA74" stroke-width="1" opacity=".22" stroke-dasharray="6 9"/><circle cx="70" cy="38" r="3.5" fill="#FDBA74" opacity=".6"/></g>
+    <circle class="vp-dot" cx="16" cy="24" r="2" fill="#F97316" style="animation-delay:0s"/>
+    <circle class="vp-dot" cx="124" cy="116" r="2.5" fill="#FB923C" style="animation-delay:.8s"/>
+    <circle class="vp-dot" cx="22" cy="114" r="2" fill="#FDBA74" style="animation-delay:1.6s"/>
+    <circle class="vp-dot" cx="120" cy="22" r="2" fill="#F97316" style="animation-delay:.4s"/>
+    <circle class="vp-dot" cx="70" cy="137" r="1.5" fill="#FB923C" style="animation-delay:1.2s"/>
+    <circle class="vp-dot" cx="5" cy="68" r="1.5" fill="#FDBA74" style="animation-delay:2s"/>
+    <g class="vx-core" style="transform-origin:70px 70px"><path d="M46,46 L94,94" stroke="#F97316" stroke-width="10" stroke-linecap="round" fill="none"/><path d="M94,46 L46,94" stroke="#F97316" stroke-width="10" stroke-linecap="round" fill="none"/></g>
+    <circle cx="70" cy="70" r="8" fill="#F97316" opacity=".12"/><circle cx="70" cy="70" r="4" fill="#F97316" opacity=".5"/>
+  </svg>
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Fleet intelligence, live now
+  </div>
+  <h1>Know every truck.<br><em>Every second.</em></h1>
+  <p class="hero-sub">XServ Labs builds software for industries that move. Traxium is our fleet intelligence platform — real-time GPS, delay prediction, and compliance in one screen.</p>
+  <div class="hero-actions">
+    <a href="https://www.traxium.in/login.html" class="btn-primary" target="_blank">Start Free Trial</a>
+    <a href="#product" class="btn-secondary">See the Platform</a>
+  </div>
+  <div class="hero-scroll">
+    Scroll
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="section-label">About XServ Labs</div>
+      <h2 class="section-title">We build tools for industries that can't afford downtime</h2>
+      <p>XServ Labs is a software development company focused on solving real operational pain — starting with logistics. We believe enterprise software should be fast to deploy, effortless to use, and impossible to outgrow.</p>
+      <p>Traxium is our flagship product: a fleet intelligence platform trusted by transport companies across India. It connects to your existing GPS hardware, goes live in 60 seconds, and gives you visibility you never had before.</p>
+    </div>
+    <div class="about-values reveal">
+      <div class="value-card">
+        <div class="value-icon vi-green">◎</div>
+        <div>
+          <h4>Zero friction deployment</h4>
+          <p>No hardware installation. No training sessions. Connect your WheelsEye GPS and you're live — fleet synced, alerts running, compliance tracked.</p>
+        </div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon vi-blue">⟡</div>
+        <div>
+          <h4>Built for Indian logistics</h4>
+          <p>TAT tracking, permit renewals, loading bay management, and invoice mapping — designed for the problems transport companies actually face every day.</p>
+        </div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon vi-gold">◈</div>
+        <div>
+          <h4>Intelligence, not just data</h4>
+          <p>Delay prediction flags at-risk trips hours in advance. ~90% fewer TAT breaches. Your team acts on insight instead of reacting to crisis.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT SHOWCASE -->
+<section class="showcase" id="product">
+  <div class="showcase-header reveal">
+    <div class="section-label">Flagship Product</div>
+    <h2 class="section-title">Meet Traxium</h2>
+    <p>Real-time fleet intelligence — GPS tracking, delay prediction, compliance, and invoicing. Live in 60 seconds, no hardware required.</p>
+  </div>
+
+  <div class="product-preview reveal">
+    <div class="preview-toolbar">
+      <div class="toolbar-dot"></div>
+      <div class="toolbar-dot"></div>
+      <div class="toolbar-dot"></div>
+      <div class="toolbar-url">app.traxium.in</div>
+      <div class="toolbar-badge"><span class="live-dot"></span> Live Tracking</div>
+    </div>
+    <div class="preview-body">
+      <div class="preview-sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Modules</div>
+          <div class="sidebar-item active"><span class="sidebar-icon">◉</span> Live Tracking</div>
+          <div class="sidebar-item"><span class="sidebar-icon">↻</span> Trips & TAT</div>
+          <div class="sidebar-item"><span class="sidebar-icon">⚡</span> Delay Alerts</div>
+          <div class="sidebar-item"><span class="sidebar-icon">☰</span> Compliance</div>
+          <div class="sidebar-item"><span class="sidebar-icon">▤</span> Invoicing</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Quick Stats</div>
+          <div class="sidebar-item"><span class="sidebar-icon" style="color:var(--accent-green)">●</span> 847 Moving</div>
+          <div class="sidebar-item"><span class="sidebar-icon" style="color:var(--accent-red)">●</span> 23 Halted</div>
+          <div class="sidebar-item"><span class="sidebar-icon" style="color:#D97706">●</span> 56 Loading</div>
+        </div>
+      </div>
+      <div class="preview-main">
+        <div class="main-top">
+          <h3>Fleet Overview</h3>
+          <span class="vehicle-count">12,847 vehicles</span>
+        </div>
+        <table class="fleet-table">
+          <thead>
+            <tr>
+              <th>Vehicle</th>
+              <th>Route</th>
+              <th>Status</th>
+              <th>ETA</th>
+              <th>TAT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="truck-id">TS 09 UB 4832</span></td>
+              <td><span class="route-text">HYD → MUM</span></td>
+              <td><span class="status-badge status-moving"><span class="status-dot"></span>Moving</span></td>
+              <td><span class="eta-text">14:30</span></td>
+              <td><div class="tat-bar-wrap"><div class="tat-bar tat-green" style="width:72%"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="truck-id">MH 12 DE 1089</span></td>
+              <td><span class="route-text">PUN → DEL</span></td>
+              <td><span class="status-badge status-moving"><span class="status-dot"></span>Moving</span></td>
+              <td><span class="eta-text">22:15</span></td>
+              <td><div class="tat-bar-wrap"><div class="tat-bar tat-yellow" style="width:55%"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="truck-id">KA 01 MN 7764</span></td>
+              <td><span class="route-text">BLR → CHE</span></td>
+              <td><span class="status-badge status-halted"><span class="status-dot"></span>Halted</span></td>
+              <td><span class="eta-text eta-risk">At Risk</span></td>
+              <td><div class="tat-bar-wrap"><div class="tat-bar tat-red" style="width:89%"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="truck-id">RJ 14 TC 3351</span></td>
+              <td><span class="route-text">JAI → AMD</span></td>
+              <td><span class="status-badge status-loading"><span class="status-dot"></span>Loading</span></td>
+              <td><span class="eta-text">—</span></td>
+              <td><div class="tat-bar-wrap"><div class="tat-bar tat-green" style="width:20%"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="truck-id">GJ 05 BX 9920</span></td>
+              <td><span class="route-text">AMD → MUM</span></td>
+              <td><span class="status-badge status-moving"><span class="status-dot"></span>Moving</span></td>
+              <td><span class="eta-text">11:45</span></td>
+              <td><div class="tat-bar-wrap"><div class="tat-bar tat-green" style="width:40%"></div></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-row reveal">
+    <div class="feature-card reveal-delay-1">
+      <div class="feature-icon">◉</div>
+      <h4>Live GPS Tracking</h4>
+      <p>Every vehicle on one screen, updated in real time via WheelsEye. Halt alerts, route deviations, and at-risk flags — zero phone calls needed.</p>
+    </div>
+    <div class="feature-card reveal-delay-2">
+      <div class="feature-icon">⚡</div>
+      <h4>Delay Prediction</h4>
+      <p>At-risk trips flagged hours before they breach TAT. ~90% fewer penalties. Your ops team fixes problems before clients even notice.</p>
+    </div>
+    <div class="feature-card reveal-delay-3">
+      <div class="feature-icon">☰</div>
+      <h4>Document Compliance</h4>
+      <p>Permits, fitness certificates, insurance — auto-tracked with renewal alerts. Never get impounded over an expired document again.</p>
+    </div>
+  </div>
+  <div class="features-row features-row-2 reveal">
+    <div class="feature-card reveal-delay-1">
+      <div class="feature-icon">↻</div>
+      <h4>Trip & TAT Management</h4>
+      <p>Live progress bars and TAT countdown rings for every trip. Mapped to clients. Full turnaround visibility at a glance.</p>
+    </div>
+    <div class="feature-card reveal-delay-2">
+      <div class="feature-icon">▤</div>
+      <h4>One-Click Invoicing</h4>
+      <p>Invoices auto-mapped to trips. Generate PDFs in seconds, track payments, eliminate manual reconciliation.</p>
+    </div>
+    <div class="feature-card reveal-delay-3">
+      <div class="feature-icon">◈</div>
+      <h4>AI Command</h4>
+      <p>Ask questions in plain language. Get answers from your fleet data instantly — no dashboards to navigate, no reports to generate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <div class="section-label">Get in Touch</div>
+    <h2 class="section-title">Ready to see every truck,<br>every second?</h2>
+    <p class="contact-sub">Start your 30-day free trial of Traxium, or reach out to learn more about XServ Labs.</p>
+    <div class="contact-form">
+      <div class="form-row">
+        <input type="text" placeholder="Your name">
+        <input type="email" placeholder="Email address">
+      </div>
+      <input type="text" placeholder="Company name">
+      <textarea placeholder="Tell us about your fleet — how many vehicles, current challenges..."></textarea>
+      <button class="btn-gold">Send Message</button>
+    </div>
+    <div class="contact-links">
+      <a href="https://www.traxium.in" class="contact-link" target="_blank">traxium.in</a>
+      <a href="https://www.traxium.in/login.html" class="contact-link" target="_blank">Start Free Trial →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;align-items:center;gap:10px">
+    <svg width="28" height="28" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="54" fill="none" stroke="#F97316" stroke-width="1" opacity=".14" stroke-dasharray="10 16"/>
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#FB923C" stroke-width="1" opacity=".2" stroke-dasharray="8 12"/>
+      <circle cx="60" cy="60" r="26" fill="none" stroke="#FDBA74" stroke-width="1.2" opacity=".24" stroke-dasharray="5 8"/>
+      <path d="M40,40 L80,80" stroke="#F97316" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <path d="M80,40 L40,80" stroke="#F97316" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <circle cx="60" cy="60" r="3.5" fill="#F97316" opacity=".5"/>
+    </svg>
+    <span class="footer-text">© 2026 XServ Labs · Built by Syed Ali Mohammad</span>
+  </div>
+  <div class="footer-links">
+    <a href="https://www.traxium.in" target="_blank">Traxium</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Twitter</a>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
