@@ -322,6 +322,64 @@
 
   .features-row-2 { margin-top: 24px; }
 
+  /* ═══════════════ PRAXATE ═══════════════ */
+  .praxate { background: var(--white); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+  .praxate-inner { max-width: 1100px; margin: 0 auto; }
+  .praxate-header { text-align: center; margin-bottom: 80px; }
+  .praxate-header .section-title { margin: 0 auto; }
+  .praxate-header p { color: var(--text-muted); font-size: 16px; margin-top: 20px; font-weight: 300; max-width: 560px; margin-left: auto; margin-right: auto; }
+  .praxate-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; background: var(--accent-blue-light); border: 1px solid rgba(74,127,181,0.15);
+    border-radius: 100px; font-size: 12px; color: var(--accent-blue);
+    font-weight: 600; letter-spacing: 0.5px; margin-bottom: 20px;
+  }
+
+  .praxate-preview {
+    background: #0F1117; border-radius: 20px; border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden; box-shadow: var(--shadow-xl); padding: 48px; color: #fff;
+  }
+  .praxate-preview-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 36px; }
+  .praxate-preview-top h3 { font-family: 'DM Serif Display', serif; font-size: 22px; color: #fff; letter-spacing: -0.5px; }
+  .praxate-live-badge { font-size: 11px; font-weight: 600; color: #60A5FA; background: rgba(96,165,250,0.1); padding: 5px 14px; border-radius: 100px; display: flex; align-items: center; gap: 6px; }
+  .praxate-live-badge .live-dot { width: 5px; height: 5px; background: #60A5FA; border-radius: 50%; animation: pulse 1.5s ease infinite; }
+
+  .praxate-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 36px; }
+  .praxate-stat {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-sm); padding: 20px; text-align: center;
+  }
+  .praxate-stat-value { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 600; color: #fff; }
+  .praxate-stat-value.blue { color: #60A5FA; }
+  .praxate-stat-value.green { color: #34D399; }
+  .praxate-stat-value.orange { color: #FBBF24; }
+  .praxate-stat-value.red { color: #F87171; }
+  .praxate-stat-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; font-weight: 500; }
+
+  .praxate-zones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .praxate-zone {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-xs); padding: 16px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .praxate-zone-name { font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 400; }
+  .praxate-zone-count { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; color: #60A5FA; }
+
+  .praxate-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+  .praxate-feature {
+    padding: 36px; background: var(--bg); border: 1px solid var(--border-light);
+    border-radius: var(--radius); transition: all 0.4s ease;
+  }
+  .praxate-feature:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--border); }
+  .praxate-feature .feature-icon { background: var(--accent-blue-light); }
+  .praxate-feature h4 { font-family: 'DM Serif Display', serif; font-size: 20px; margin-bottom: 10px; letter-spacing: -0.3px; }
+  .praxate-feature p { font-size: 14px; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
+
+  @media (max-width: 900px) {
+    .praxate-stats { grid-template-columns: repeat(2, 1fr); }
+    .praxate-zones { grid-template-columns: 1fr; }
+    .praxate-features { grid-template-columns: 1fr; }
+  }
+
   /* ═══════════════ CONTACT ═══════════════ */
   .contact { background: var(--accent); color: var(--white); text-align: center; padding: 120px 48px; }
   .contact .section-label { color: var(--accent-gold); }
@@ -418,6 +476,7 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#product">Traxium</a></li>
+    <li><a href="#praxate">Praxate</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="https://www.traxium.in" class="nav-cta" target="_blank">Try Traxium Free</a></li>
   </ul>
@@ -615,6 +674,73 @@
   </div>
 </section>
 
+<!-- PRAXATE -->
+<section class="praxate" id="praxate">
+  <div class="praxate-inner">
+    <div class="praxate-header reveal">
+      <div class="praxate-badge">COMING SOON</div>
+      <div class="section-label">Next Product</div>
+      <h2 class="section-title">Meet Praxate</h2>
+      <p>AI-powered workforce intelligence. Turn your existing CCTV cameras into smart monitoring — attendance, security, analytics. All processed locally, no cloud needed.</p>
+    </div>
+
+    <div class="praxate-preview reveal">
+      <div class="praxate-preview-top">
+        <h3>Workforce Dashboard</h3>
+        <div class="praxate-live-badge"><span class="live-dot"></span> 12 Cameras Active</div>
+      </div>
+      <div class="praxate-stats">
+        <div class="praxate-stat">
+          <div class="praxate-stat-value blue">142</div>
+          <div class="praxate-stat-label">Present Today</div>
+        </div>
+        <div class="praxate-stat">
+          <div class="praxate-stat-value green">99.7%</div>
+          <div class="praxate-stat-label">Recognition Accuracy</div>
+        </div>
+        <div class="praxate-stat">
+          <div class="praxate-stat-value orange">24/7</div>
+          <div class="praxate-stat-label">Continuous Monitoring</div>
+        </div>
+        <div class="praxate-stat">
+          <div class="praxate-stat-value red">3</div>
+          <div class="praxate-stat-label">Security Alerts</div>
+        </div>
+      </div>
+      <div class="praxate-zones">
+        <div class="praxate-zone"><span class="praxate-zone-name">Main Entrance</span><span class="praxate-zone-count">28</span></div>
+        <div class="praxate-zone"><span class="praxate-zone-name">Production Floor</span><span class="praxate-zone-count">64</span></div>
+        <div class="praxate-zone"><span class="praxate-zone-name">Warehouse A</span><span class="praxate-zone-count">19</span></div>
+        <div class="praxate-zone"><span class="praxate-zone-name">Office Block</span><span class="praxate-zone-count">31</span></div>
+        <div class="praxate-zone"><span class="praxate-zone-name">Cafeteria</span><span class="praxate-zone-count">12</span></div>
+        <div class="praxate-zone"><span class="praxate-zone-name">Restricted Zone</span><span class="praxate-zone-count">0</span></div>
+      </div>
+    </div>
+
+    <div class="praxate-features reveal">
+      <div class="praxate-feature reveal-delay-1">
+        <div class="feature-icon">👁</div>
+        <h4>Face Recognition</h4>
+        <p>99.7% accuracy across multiple camera feeds. Identifies employees instantly, flags unknown persons, and logs every entry automatically.</p>
+      </div>
+      <div class="praxate-feature reveal-delay-2">
+        <div class="feature-icon">🔒</div>
+        <h4>Security Alerts</h4>
+        <p>Instant notifications for unauthorized access, unknown persons, and restricted zone breaches — with photo evidence sent to your phone.</p>
+      </div>
+      <div class="praxate-feature reveal-delay-3">
+        <div class="feature-icon">📊</div>
+        <h4>Workforce Analytics</h4>
+        <p>Attendance patterns, peak hour analysis, zone occupancy tracking, and efficiency metrics — all from your existing cameras.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:48px;" class="reveal">
+      <a href="http://praxate.com" class="btn-primary" target="_blank" style="background:var(--accent-blue);">Join the Waitlist</a>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="reveal">
@@ -652,6 +778,7 @@
   </div>
   <div class="footer-links">
     <a href="https://www.traxium.in" target="_blank">Traxium</a>
+    <a href="http://praxate.com" target="_blank">Praxate</a>
     <a href="#">Privacy</a>
     <a href="#">Terms</a>
     <a href="#">Twitter</a>
