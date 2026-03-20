@@ -733,44 +733,199 @@
   .reveal-d3 { transition-delay: 0.45s; }
   .reveal-d4 { transition-delay: 0.6s; }
 
-  /* ═══════════ RESPONSIVE ═══════════ */
+  /* ═══════════ RESPONSIVE — TABLET ═══════════ */
   @media (max-width: 900px) {
     body { cursor: auto; }
     .cursor-dot, .cursor-ring, .cursor-trail { display: none !important; }
-    nav { padding: 12px 20px; max-width: 95%; gap: 16px; }
+    .mouse-spotlight { display: none !important; }
+    a, button, input, textarea { cursor: auto; }
+
+    /* Nav — hamburger-free: just logo + CTA */
+    nav { padding: 12px 20px; max-width: 94%; gap: 12px; top: 10px; }
     .nav-links { gap: 4px; }
     .nav-links li:not(:last-child) { display: none; }
+    .nav-cta { padding: 8px 20px !important; font-size: 12px !important; }
+    .logo-text { font-size: 14px; }
+
+    /* Hero */
     section { padding: 80px 20px; }
-    .hero { padding: 120px 20px 80px; }
-    .hero h1 { letter-spacing: -2px; }
-    .hero-logo-wrap { width: 160px; height: 160px; }
-    .ho-1 { width: 160px; height: 160px; }
-    .ho-2 { width: 130px; height: 130px; }
-    .ho-3 { width: 100px; height: 100px; }
-    .ho-4 { width: 70px; height: 70px; }
-    .hero-x { font-size: 52px; }
-    .about-grid { grid-template-columns: 1fr; gap: 48px; }
-    .stats-row { gap: 24px; }
+    .hero { padding: 120px 20px 80px; min-height: 100svh; }
+    .hero h1 { letter-spacing: -2px; font-size: clamp(40px, 10vw, 70px); }
+    .hero-logo-wrap { width: 140px; height: 140px; margin-bottom: 40px; }
+    .ho-1 { width: 140px; height: 140px; }
+    .ho-2 { width: 110px; height: 110px; }
+    .ho-3 { width: 80px; height: 80px; }
+    .ho-4 { width: 55px; height: 55px; }
+    .ho-5 { width: 35px; height: 35px; }
+    .hero-x { font-size: 46px; }
+    .hero-core-glow { width: 40px; height: 40px; }
+    @keyframes pulseRingExpand {
+      0% { width: 40px; height: 40px; opacity: 0.6; }
+      100% { width: 260px; height: 260px; opacity: 0; }
+    }
+    .hero-badge { font-size: 12px; padding: 6px 16px; }
+    .hero-sub { font-size: 16px; max-width: 440px; margin-top: 24px; }
+    .hero-actions { flex-direction: column; align-items: center; gap: 12px; margin-top: 36px; width: 100%; }
+    .btn-glow, .btn-ghost { width: 100%; max-width: 300px; text-align: center; padding: 16px 32px; font-size: 15px; }
+    .hero-scroll { bottom: 24px; }
+    .scroll-line { height: 30px; }
+    .hero-grid { background-size: 50px 50px; }
+
+    /* About */
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .stats-row { gap: 24px; flex-wrap: wrap; }
     .stat-number { font-size: 36px; }
+    .stat-label { font-size: 10px; }
+    .about-card { padding: 20px 24px; }
+    .about-card:hover { transform: translateX(6px); }
+    .marquee-wrap { margin-top: 48px; padding: 36px 0; }
+
+    /* Products */
     .product-inner { grid-template-columns: 1fr; }
-    .product-preview-wrap { padding: 24px; }
-    .product-name { font-size: 36px; }
-    .product-info { padding: 32px; }
-    .form-row { flex-direction: column; }
-    footer { flex-direction: column; gap: 20px; text-align: center; }
+    .product-info { padding: 32px 24px; }
+    .product-preview-wrap { padding: 0 24px 32px; }
+    .product-name { font-size: 36px; letter-spacing: -1.5px; }
+    .product-tagline { font-size: 16px; }
+    .product-desc { font-size: 14px; }
+    .product-features { gap: 6px; }
+    .pf-tag { padding: 5px 12px; font-size: 11px; }
+    .product-cta { flex-direction: column; gap: 12px; }
+    .btn-product { width: 100%; text-align: center; padding: 14px 32px; }
+    .product-link { text-align: center; }
+    .product-card { border-radius: 20px; margin-bottom: 32px; }
+    .card-particles { display: none; }
+
+    /* Dashboards */
+    .trax-dash, .prax-dash { max-width: 100%; padding: 20px; }
+    .trax-vehicle { font-size: 11px; }
+    .trax-route { font-size: 11px; }
+    .trax-stats-row { gap: 8px; }
+    .tsm-val { font-size: 18px; }
+    .trax-stat-mini { padding: 10px; }
+    .prax-val { font-size: 22px; }
+    .prax-stat { padding: 12px; }
+    .pz-name { font-size: 11px; width: 75px; }
+
+    /* Tech */
+    .tech-grid { gap: 10px; }
+    .tech-item { padding: 10px 18px; font-size: 11px; }
+
+    /* Contact */
+    .contact-sub { font-size: 15px; max-width: 400px; }
+    .contact-form input, .contact-form textarea { padding: 14px 18px; font-size: 14px; }
+    .btn-submit { padding: 16px 32px; width: 100%; }
+    .contact-links { gap: 24px; flex-wrap: wrap; justify-content: center; }
+
+    /* Footer */
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 20px; }
     footer::before { left: 20px; right: 20px; }
-    .marquee-wrap { margin-top: 48px; }
-    .hero-actions { flex-direction: column; align-items: center; }
-    .hero-sub { font-size: 17px; }
-    .tech-grid { gap: 12px; }
-    .tech-item { padding: 10px 20px; font-size: 11px; }
-    a, button, input, textarea { cursor: auto; }
+    .footer-left { flex-direction: column; gap: 8px; }
+    .footer-links { gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+    /* Gradient blobs — smaller on mobile for performance */
+    .blob-1 { width: 300px; height: 300px; }
+    .blob-2 { width: 250px; height: 250px; }
+    .blob-3 { width: 200px; height: 200px; }
+
+    /* Reveals — reduce motion distance */
+    .reveal { transform: translateY(30px); }
+    .reveal-left { transform: translateX(-40px); }
+    .reveal-right { transform: translateX(40px); }
   }
 
+  /* ═══════════ RESPONSIVE — SMALL PHONES ═══════════ */
   @media (max-width: 480px) {
-    .hero h1 { font-size: 36px; letter-spacing: -1px; }
-    .section-title { font-size: 28px; letter-spacing: -1px; }
-    .stats-row { flex-direction: column; gap: 16px; }
+    nav { padding: 10px 16px; max-width: 96%; top: 8px; }
+    .logo-mark { width: 30px; height: 30px; }
+    .orbit-1 { width: 30px; height: 30px; }
+    .orbit-2 { width: 22px; height: 22px; }
+    .orbit-3 { width: 14px; height: 14px; }
+    .logo-x { font-size: 14px; }
+    .logo-text { font-size: 13px; }
+    .nav-cta { padding: 7px 16px !important; font-size: 11px !important; }
+
+    .hero { padding: 100px 16px 60px; }
+    .hero-logo-wrap { width: 120px; height: 120px; margin-bottom: 32px; }
+    .ho-1 { width: 120px; height: 120px; }
+    .ho-2 { width: 95px; height: 95px; }
+    .ho-3 { width: 70px; height: 70px; }
+    .ho-4 { width: 45px; height: 45px; }
+    .ho-5 { width: 25px; height: 25px; }
+    .hero-x { font-size: 38px; }
+    .hero h1 { font-size: 34px; letter-spacing: -1px; line-height: 1.1; }
+    .hero-sub { font-size: 15px; line-height: 1.7; }
+    .hero-badge { font-size: 11px; padding: 5px 14px; margin-bottom: 24px; }
+    .btn-glow, .btn-ghost { font-size: 14px; padding: 14px 28px; }
+
+    section { padding: 60px 16px; }
+    .section-label { font-size: 10px; letter-spacing: 3px; }
+    .section-title { font-size: 26px; letter-spacing: -0.8px; line-height: 1.15; }
+    .about-text p { font-size: 15px; }
+    .stats-row { flex-direction: column; gap: 12px; }
+    .stat-number { font-size: 32px; }
+
+    .product-card { border-radius: 16px; }
+    .product-info { padding: 24px 20px; }
+    .product-preview-wrap { padding: 0 20px 24px; }
+    .product-name { font-size: 30px; }
+    .product-tagline { font-size: 15px; }
+    .product-desc { font-size: 13px; line-height: 1.7; }
+    .product-badge { font-size: 10px; padding: 5px 14px; }
+    .btn-product { font-size: 13px; padding: 12px 28px; }
+
+    .trax-dash, .prax-dash { padding: 16px; border-radius: 14px; }
+    .trax-row { padding: 10px 0; }
+    .trax-vehicle { font-size: 10px; }
+    .trax-route { font-size: 10px; }
+    .trax-status { font-size: 9px; padding: 2px 8px; }
+    .tsm-val { font-size: 16px; }
+    .tsm-label { font-size: 8px; }
+    .trax-stat-mini { padding: 8px; }
+    .prax-val { font-size: 20px; }
+    .prax-stat { padding: 10px; }
+    .prax-label { font-size: 8px; }
+    .pz-name { font-size: 10px; width: 65px; }
+    .pz-count { font-size: 10px; }
+
+    .form-row { flex-direction: column; gap: 12px; }
+    .contact-form { gap: 12px; }
+    .contact-sub { font-size: 14px; margin-bottom: 36px; }
+
+    .marquee-wrap { padding: 28px 0; }
+    .marquee-item { font-size: 11px; letter-spacing: 1.5px; }
+    .marquee-wrap::before, .marquee-wrap::after { width: 40px; }
+
+    .tech-item { padding: 8px 14px; font-size: 10px; border-radius: 10px; }
+    .tech-grid { gap: 8px; }
+
+    .footer-text { font-size: 12px; }
+    .footer-links a { font-size: 12px; }
+    .footer-links { gap: 12px; }
+  }
+
+  /* ═══════════ SAFE AREA (notch devices) ═══════════ */
+  @supports (padding: max(0px)) {
+    nav { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+    footer { padding-bottom: max(32px, env(safe-area-inset-bottom)); }
+  }
+
+  /* ═══════════ REDUCED MOTION ═══════════ */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    .hero-logo-wrap { opacity: 1; }
+    .hero-badge, .hero h1, .hero-sub, .hero-actions, .hero-scroll { opacity: 1; }
+    .reveal, .reveal-left, .reveal-right, .reveal-scale { opacity: 1; transform: none; }
+  }
+
+  /* ═══════════ TOUCH HOVER FIX ═══════════ */
+  @media (hover: none) {
+    .about-card:hover { transform: none; }
+    .about-card:hover::before { height: 0; }
+    .pf-tag:hover { transform: none; }
+    .tech-item:hover { transform: none; }
+    .trax-row:hover { padding-left: 0; background: none; }
+    .prax-stat:hover { transform: none; }
+    .trax-stat-mini:hover { transform: none; }
   }
 </style>
 </head>
@@ -1105,56 +1260,67 @@
 </footer>
 
 <script>
-  // ═══════════ CUSTOM CURSOR ═══════════
-  const cursorDot = document.getElementById('cursorDot');
-  const cursorRing = document.getElementById('cursorRing');
-  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-  const trails = [];
-  const MAX_TRAILS = 8;
+  // ═══════════ DEVICE DETECTION ═══════════
+  const _isMobile = window.matchMedia('(max-width: 900px)').matches || 'ontouchstart' in window;
+  let mouseX = 0, mouseY = 0;
 
-  document.addEventListener('mousemove', e => {
-    mouseX = e.clientX; mouseY = e.clientY;
-    cursorDot.style.left = mouseX + 'px';
-    cursorDot.style.top = mouseY + 'px';
-    cursorDot.style.transform = 'translate(-50%, -50%)';
+  // ═══════════ CUSTOM CURSOR (desktop only) ═══════════
+  if (!_isMobile) {
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorRing = document.getElementById('cursorRing');
+    let ringX = 0, ringY = 0;
+    const trails = [];
+    const MAX_TRAILS = 8;
 
-    // Spotlight
-    const spotlight = document.getElementById('mouseSpotlight');
-    spotlight.style.left = mouseX + 'px';
-    spotlight.style.top = mouseY + 'px';
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      cursorDot.style.left = mouseX + 'px';
+      cursorDot.style.top = mouseY + 'px';
+      cursorDot.style.transform = 'translate(-50%, -50%)';
 
-    // Cursor trail
-    if (trails.length < MAX_TRAILS) {
-      const trail = document.createElement('div');
-      trail.className = 'cursor-trail';
-      document.body.appendChild(trail);
+      // Spotlight
+      const spotlight = document.getElementById('mouseSpotlight');
+      spotlight.style.left = mouseX + 'px';
+      spotlight.style.top = mouseY + 'px';
+
+      // Cursor trail
+      if (trails.length < MAX_TRAILS) {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        document.body.appendChild(trail);
+        trails.push(trail);
+      }
+      const trail = trails.shift();
+      trail.style.left = mouseX + 'px';
+      trail.style.top = mouseY + 'px';
+      trail.style.transform = 'translate(-50%, -50%)';
+      trail.style.opacity = '0.4';
       trails.push(trail);
+      setTimeout(() => { trail.style.opacity = '0'; trail.style.transition = 'opacity 0.4s ease'; }, 50);
+    });
+
+    function animateCursorRing() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top = ringY + 'px';
+      cursorRing.style.transform = 'translate(-50%, -50%)';
+      requestAnimationFrame(animateCursorRing);
     }
-    const trail = trails.shift();
-    trail.style.left = mouseX + 'px';
-    trail.style.top = mouseY + 'px';
-    trail.style.transform = 'translate(-50%, -50%)';
-    trail.style.opacity = '0.4';
-    trails.push(trail);
-    setTimeout(() => { trail.style.opacity = '0'; trail.style.transition = 'opacity 0.4s ease'; }, 50);
-  });
+    animateCursorRing();
 
-  // Smooth ring follow
-  function animateCursorRing() {
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
-    cursorRing.style.left = ringX + 'px';
-    cursorRing.style.top = ringY + 'px';
-    cursorRing.style.transform = 'translate(-50%, -50%)';
-    requestAnimationFrame(animateCursorRing);
+    document.querySelectorAll('a, button, .about-card, .pf-tag, .tech-item, .prax-stat, .trax-stat-mini').forEach(el => {
+      el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+    });
+  } else {
+    // On mobile, track touch position for particle canvas interaction
+    document.addEventListener('touchmove', e => {
+      mouseX = e.touches[0].clientX;
+      mouseY = e.touches[0].clientY;
+    }, { passive: true });
+    document.addEventListener('touchend', () => { mouseX = 0; mouseY = 0; });
   }
-  animateCursorRing();
-
-  // Cursor hover effect on interactive elements
-  document.querySelectorAll('a, button, .about-card, .pf-tag, .tech-item, .prax-stat, .trax-stat-mini').forEach(el => {
-    el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
-  });
 
   // ═══════════ HERO TEXT WORD-BY-WORD REVEAL ═══════════
   const heroTitle = document.getElementById('heroTitle');
@@ -1176,12 +1342,17 @@
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
   let particles = [];
-  let mouse = { x: null, y: null };
+  const mouse = { x: null, y: null };
 
   function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
   resize();
   window.addEventListener('resize', resize);
-  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  if (!_isMobile) {
+    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  } else {
+    document.addEventListener('touchmove', e => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; }, { passive: true });
+    document.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
+  }
 
   class Particle {
     constructor() { this.reset(); }
@@ -1242,10 +1413,11 @@
   for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
   function drawLines() {
-    const maxDist = 160;
+    const maxDist = _isMobile ? 100 : 160;
+    const maxConn = _isMobile ? 3 : 5;
     for (let i = 0; i < particles.length; i++) {
       let connections = 0;
-      for (let j = i + 1; j < particles.length && connections < 5; j++) {
+      for (let j = i + 1; j < particles.length && connections < maxConn; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -1407,7 +1579,8 @@
   document.querySelectorAll('.trax-dash, .prax-dash, .about-inner').forEach(el => counterObserver.observe(el));
 
   // ═══════════ 3D TILT ON PRODUCT CARDS ═══════════
-  document.querySelectorAll('[data-tilt]').forEach(card => {
+  const isMobile = window.matchMedia('(max-width: 900px)').matches || 'ontouchstart' in window;
+  if (!isMobile) document.querySelectorAll('[data-tilt]').forEach(card => {
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -1432,8 +1605,8 @@
     });
   });
 
-  // ═══════════ MAGNETIC BUTTONS ═══════════
-  document.querySelectorAll('.magnetic-btn').forEach(btn => {
+  // ═══════════ MAGNETIC BUTTONS (desktop only) ═══════════
+  if (!isMobile) document.querySelectorAll('.magnetic-btn').forEach(btn => {
     btn.addEventListener('mousemove', e => {
       const rect = btn.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
@@ -1460,9 +1633,9 @@
     });
   });
 
-  // ═══════════ PARALLAX ON SCROLL ═══════════
+  // ═══════════ PARALLAX ON SCROLL (desktop only) ═══════════
   let ticking = false;
-  window.addEventListener('scroll', () => {
+  if (!isMobile) window.addEventListener('scroll', () => {
     if (!ticking) {
       requestAnimationFrame(() => {
         const scrollY = window.scrollY;
