@@ -1134,6 +1134,86 @@
   .contact-link:hover { color: var(--accent); }
   .contact-link:hover::after { width: 100%; }
 
+  /* ═══════════ DIRECT CONTACT BUTTONS (in contact section) ═══════════ */
+  .contact-direct {
+    max-width: 500px; margin: 0 auto 36px; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 12px; position: relative; z-index: 1;
+  }
+  .contact-direct-btn {
+    padding: 18px 20px; border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    transition: all 0.3s ease; border: 1px solid transparent; cursor: none;
+    position: relative; overflow: hidden;
+  }
+  .cd-whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E); color: #fff;
+    box-shadow: 0 8px 24px rgba(37,211,102,0.2);
+  }
+  .cd-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(37,211,102,0.4); }
+  .cd-call {
+    background: rgba(255,255,255,0.04); color: var(--text);
+    border-color: var(--border);
+  }
+  .cd-call:hover { border-color: var(--accent); color: var(--accent); background: rgba(249,115,22,0.05); transform: translateY(-3px); }
+  .cd-icon {
+    width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .contact-divider {
+    max-width: 500px; margin: 0 auto 28px; display: flex; align-items: center; gap: 16px;
+    color: var(--text-dim); font-size: 12px; letter-spacing: 2px;
+  }
+  .contact-divider::before, .contact-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* ═══════════ FLOATING WHATSAPP BUTTON ═══════════ */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 9500;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 28px; text-decoration: none; cursor: pointer;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.4);
+    transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    animation: waPulse 2.5s ease-in-out infinite;
+  }
+  .wa-float::before {
+    content: ''; position: absolute; inset: -6px; border-radius: 50%;
+    border: 2px solid rgba(37,211,102,0.4);
+    animation: waRing 2s ease-out infinite;
+  }
+  .wa-float::after {
+    content: ''; position: absolute; inset: -6px; border-radius: 50%;
+    border: 2px solid rgba(37,211,102,0.4);
+    animation: waRing 2s ease-out infinite 1s;
+  }
+  .wa-float:hover {
+    transform: scale(1.1) rotate(8deg);
+    box-shadow: 0 12px 48px rgba(37,211,102,0.6);
+  }
+  .wa-float-tooltip {
+    position: absolute; right: 72px; top: 50%; transform: translateY(-50%) translateX(10px);
+    background: rgba(20,20,30,0.95); color: #fff; padding: 10px 16px;
+    border-radius: 10px; white-space: nowrap; font-size: 13px; font-weight: 500;
+    border: 1px solid var(--border-hover); opacity: 0; pointer-events: none;
+    transition: all 0.3s ease; backdrop-filter: blur(12px);
+  }
+  .wa-float-tooltip::after {
+    content: ''; position: absolute; right: -6px; top: 50%; transform: translateY(-50%);
+    border: 6px solid transparent; border-left-color: rgba(20,20,30,0.95);
+  }
+  .wa-float:hover .wa-float-tooltip { opacity: 1; transform: translateY(-50%) translateX(0); }
+  @keyframes waPulse {
+    0%, 100% { box-shadow: 0 8px 32px rgba(37,211,102,0.4); }
+    50% { box-shadow: 0 8px 32px rgba(37,211,102,0.6), 0 0 0 12px rgba(37,211,102,0.08); }
+  }
+  @keyframes waRing {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
   /* ═══════════ FOOTER ═══════════ */
   footer {
     padding: 48px; display: flex; justify-content: space-between;
@@ -1332,6 +1412,10 @@
     .contact-form input, .contact-form textarea { padding: 14px 18px; font-size: 14px; }
     .btn-submit { padding: 16px 32px; width: 100%; }
     .contact-links { gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .contact-direct { grid-template-columns: 1fr; gap: 10px; margin-bottom: 28px; }
+    .contact-direct-btn { padding: 16px 20px; }
+    .wa-float { width: 52px; height: 52px; font-size: 24px; bottom: 20px; right: 20px; }
+    .wa-float-tooltip { display: none; }
 
     /* Footer */
     footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 20px; }
@@ -2025,6 +2109,28 @@
     <div class="section-label">Get in Touch</div>
     <h2 class="section-title scramble-text">Have a project in mind?<br>Let's talk.</h2>
     <p class="contact-sub">Whether you want a product demo, a custom build, or just a conversation &mdash; we're all ears.</p>
+
+    <div class="contact-direct">
+      <a href="https://wa.me/918897599624?text=Hi%20XServ%20Labs%2C%20I%27d%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener" class="contact-direct-btn cd-whatsapp">
+        <span class="cd-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.966-.273-.101-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.304-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.464 3.488"/>
+          </svg>
+        </span>
+        WhatsApp Us
+      </a>
+      <a href="tel:+918897599624" class="contact-direct-btn cd-call">
+        <span class="cd-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </span>
+        Call +91 88975 99624
+      </a>
+    </div>
+
+    <div class="contact-divider">OR SEND A MESSAGE</div>
+
     <form class="contact-form" action="https://formspree.io/f/xpqyojvy" method="POST">
       <div class="form-row">
         <input type="text" name="name" placeholder="Your name" required>
@@ -2051,12 +2157,20 @@
     <span class="footer-text">&copy; 2026 XServ Labs &middot; Built by Syed Ali Mohammad</span>
   </div>
   <div class="footer-links">
+    <a href="https://wa.me/918897599624" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="tel:+918897599624">Call</a>
     <a href="https://www.traxium.in" target="_blank">Traxium</a>
     <a href="http://praxate.com" target="_blank">Praxate</a>
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
   </div>
 </footer>
+
+<!-- ═══════════ FLOATING WHATSAPP BUTTON ═══════════ -->
+<a href="https://wa.me/918897599624?text=Hi%20XServ%20Labs%2C%20I%27d%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.966-.273-.101-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.304-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.464 3.488"/>
+  </svg>
+  <span class="wa-float-tooltip">Chat with us on WhatsApp</span>
+</a>
 
 <!-- ═══════════ MODALS ═══════════ -->
 <div class="modal-backdrop" id="modalBackdrop">
