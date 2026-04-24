@@ -619,6 +619,130 @@
   .pz-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--cyan), #22d3ee); transition: width 1.5s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 0 8px rgba(6,182,212,0.3); }
   .pz-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan); width: 24px; text-align: right; }
 
+  /* ═══════════ CAPABILITIES SECTION ═══════════ */
+  .capabilities-section { max-width: 1280px; margin: 0 auto; position: relative; }
+  .capabilities-header { text-align: center; margin-bottom: 80px; }
+  .capabilities-header .section-title { margin: 0 auto; }
+  .capabilities-header p {
+    color: var(--text-muted); font-size: 18px; margin-top: 20px;
+    font-weight: 300; max-width: 620px; margin-left: auto; margin-right: auto;
+  }
+
+  .cap-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .cap-card {
+    position: relative; padding: 44px 36px; border-radius: 24px;
+    background: rgba(255,255,255,0.015); border: 1px solid var(--border);
+    overflow: hidden; transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+    cursor: default;
+  }
+  .cap-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(249,115,22,0.08), transparent 40%);
+    opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
+  }
+  .cap-card:hover::before { opacity: 1; }
+  .cap-card::after {
+    content: ''; position: absolute; inset: 0; border-radius: 24px;
+    padding: 1px; background: linear-gradient(135deg, transparent, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
+  }
+  .cap-card:hover { transform: translateY(-6px); border-color: var(--border-hover); }
+  .cap-card:hover::after { opacity: 1; }
+
+  .cap-card.ca-orange::after { background: linear-gradient(135deg, var(--accent), transparent 70%); }
+  .cap-card.ca-cyan::after { background: linear-gradient(135deg, var(--cyan), transparent 70%); }
+  .cap-card.ca-purple::after { background: linear-gradient(135deg, var(--purple), transparent 70%); }
+  .cap-card.ca-green::after { background: linear-gradient(135deg, var(--green), transparent 70%); }
+  .cap-card.ca-pink::after { background: linear-gradient(135deg, #ec4899, transparent 70%); }
+  .cap-card.ca-blue::after { background: linear-gradient(135deg, #3b82f6, transparent 70%); }
+  .cap-card.ca-amber::after { background: linear-gradient(135deg, #f59e0b, transparent 70%); }
+  .cap-card.ca-red::after { background: linear-gradient(135deg, #ef4444, transparent 70%); }
+  .cap-card.ca-teal::after { background: linear-gradient(135deg, #14b8a6, transparent 70%); }
+
+  .cap-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 24px; position: relative;
+    transition: all 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+  }
+  .cap-card:hover .cap-icon { transform: rotate(-8deg) scale(1.08); }
+  .ca-orange .cap-icon { color: var(--accent); box-shadow: 0 0 24px rgba(249,115,22,0); }
+  .ca-cyan .cap-icon { color: var(--cyan); }
+  .ca-purple .cap-icon { color: var(--purple); }
+  .ca-green .cap-icon { color: var(--green); }
+  .ca-pink .cap-icon { color: #ec4899; }
+  .ca-blue .cap-icon { color: #3b82f6; }
+  .ca-amber .cap-icon { color: #f59e0b; }
+  .ca-red .cap-icon { color: #ef4444; }
+  .ca-teal .cap-icon { color: #14b8a6; }
+  .cap-card:hover .cap-icon { border-color: currentColor; background: rgba(255,255,255,0.04); }
+
+  .cap-title {
+    font-family: 'DM Serif Display', serif; font-size: 24px;
+    letter-spacing: -0.5px; margin-bottom: 12px; color: var(--text);
+  }
+  .cap-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; font-weight: 300; margin-bottom: 20px; }
+  .cap-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .cap-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    padding: 4px 10px; border-radius: 100px; color: var(--text-dim);
+    border: 1px solid var(--border); background: rgba(255,255,255,0.02);
+    letter-spacing: 0.5px; transition: all 0.3s ease;
+  }
+  .cap-card:hover .cap-tag { color: var(--text-muted); border-color: var(--border-hover); }
+
+  /* ═══════════ INDUSTRIES SECTION ═══════════ */
+  .industries-section {
+    max-width: 1280px; margin: 0 auto; text-align: center; position: relative;
+  }
+  .industries-section::before {
+    content: ''; position: absolute; top: 50%; left: 50%; width: 800px; height: 800px;
+    transform: translate(-50%, -50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, rgba(249,115,22,0.04), transparent 60%);
+  }
+  .industries-header { margin-bottom: 70px; position: relative; z-index: 1; }
+  .industries-header .section-title { margin: 0 auto; }
+  .industries-header p {
+    color: var(--text-muted); font-size: 18px; margin-top: 20px;
+    font-weight: 300; max-width: 580px; margin-left: auto; margin-right: auto;
+  }
+
+  .industry-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    position: relative; z-index: 1;
+  }
+  .industry-card {
+    padding: 28px 22px; border-radius: 18px;
+    background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+    transition: all 0.5s cubic-bezier(0.4,0,0.2,1); cursor: default;
+    text-align: left; position: relative; overflow: hidden;
+  }
+  .industry-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--ic, var(--accent)), transparent 80%);
+    opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+  }
+  .industry-card:hover { transform: translateY(-6px) scale(1.02); border-color: var(--ic, var(--accent)); }
+  .industry-card:hover::before { opacity: 0.08; }
+  .industry-icon {
+    font-size: 22px; margin-bottom: 14px; color: var(--ic, var(--accent));
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); display: inline-block;
+  }
+  .industry-card:hover .industry-icon { transform: scale(1.2) rotate(-6deg); }
+  .industry-name {
+    font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .industry-examples {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--text-dim); letter-spacing: 0.5px;
+  }
+
   /* ═══════════ TECH STACK SECTION ═══════════ */
   .tech-section { text-align: center; }
   .tech-section .section-title { margin: 0 auto 60px; }
@@ -811,6 +935,25 @@
     .prax-stat { padding: 12px; }
     .pz-name { font-size: 11px; width: 75px; }
 
+    /* Capabilities */
+    .cap-grid { grid-template-columns: 1fr; gap: 16px; }
+    .cap-card { padding: 28px 24px; border-radius: 18px; }
+    .cap-icon { width: 44px; height: 44px; font-size: 20px; margin-bottom: 16px; border-radius: 12px; }
+    .cap-title { font-size: 20px; }
+    .cap-desc { font-size: 13px; margin-bottom: 16px; }
+    .capabilities-header { margin-bottom: 48px; }
+    .capabilities-header p { font-size: 15px; }
+
+    /* Industries */
+    .industry-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .industry-card { padding: 20px 16px; border-radius: 14px; }
+    .industry-icon { font-size: 18px; margin-bottom: 10px; }
+    .industry-name { font-size: 13px; }
+    .industry-examples { font-size: 9px; }
+    .industries-header { margin-bottom: 48px; }
+    .industries-header p { font-size: 15px; }
+    .industries-section::before { width: 400px; height: 400px; }
+
     /* Tech */
     .tech-grid { gap: 10px; }
     .tech-item { padding: 10px 18px; font-size: 11px; }
@@ -967,7 +1110,8 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#products">Products</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#industries">Industries</a></li>
     <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
   </ul>
 </nav>
@@ -992,7 +1136,7 @@
     Building the future, shipping today
   </div>
   <h1 id="heroTitle"></h1>
-  <p class="hero-sub">XServ Labs creates intelligent platforms for businesses that can't afford to stand still. From fleet logistics to workforce intelligence &mdash; we ship products that work.</p>
+  <p class="hero-sub">We're the technology partner for businesses that can't afford to stand still. From shipped products to custom enterprise platforms, AI systems, and cloud infrastructure &mdash; we build software that moves industries forward.</p>
   <div class="hero-actions">
     <div class="magnetic-btn"><a href="#products" class="btn-glow">Explore Our Products</a></div>
     <div class="magnetic-btn"><a href="#contact" class="btn-ghost">Work With Us</a></div>
@@ -1009,8 +1153,8 @@
     <div class="about-grid">
       <div class="reveal-left">
         <div class="section-label">Who We Are</div>
-        <h2 class="section-title scramble-text">Engineering teams dream about building products like these.</h2>
-        <p class="about-text">We're a software company obsessed with solving real operational pain. We don't build generic tools &mdash; we go deep into industries, understand the chaos, and ship software that makes it disappear.</p>
+        <h2 class="section-title scramble-text">A product studio that builds like a team you wish you had.</h2>
+        <p class="about-text">We're a software company obsessed with solving real operational pain. We ship our own products, and we build custom platforms for companies that need serious software, fast. Two mindsets, one standard: everything we put out has to work in the wild on day one.</p>
         <div class="stats-row">
           <div class="stat-item">
             <div class="stat-number" data-count="2">0</div>
@@ -1095,8 +1239,8 @@
 <section class="products-section" id="products">
   <div class="products-header reveal">
     <div class="section-label">Our Products</div>
-    <h2 class="section-title scramble-text">Two products. Two industries. One mission.</h2>
-    <p>Every product we ship solves a problem that costs businesses real money, every single day.</p>
+    <h2 class="section-title scramble-text">The products we ship ourselves.</h2>
+    <p>When we spot a problem no one else has solved, we build the product for it. Here are the two we run in production today.</p>
   </div>
 
   <!-- TRAXIUM -->
@@ -1199,6 +1343,186 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="capabilities-section" id="services">
+  <div class="capabilities-header reveal">
+    <div class="section-label">What We Build</div>
+    <h2 class="section-title scramble-text">End-to-end software. Any industry. Any scale.</h2>
+    <p>Products are our signature &mdash; but we also ship custom platforms, AI systems, and enterprise software for teams that need something built right.</p>
+  </div>
+
+  <div class="cap-grid">
+    <div class="cap-card ca-orange reveal" data-cap>
+      <div class="cap-icon">&#9670;</div>
+      <h3 class="cap-title">Custom Software</h3>
+      <p class="cap-desc">Tailored web and enterprise platforms engineered around your exact workflow &mdash; no off-the-shelf compromises.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">WEB APPS</span>
+        <span class="cap-tag">DASHBOARDS</span>
+        <span class="cap-tag">APIs</span>
+      </div>
+    </div>
+
+    <div class="cap-card ca-cyan reveal reveal-d1" data-cap>
+      <div class="cap-icon">&#9672;</div>
+      <h3 class="cap-title">AI &amp; Machine Learning</h3>
+      <p class="cap-desc">Computer vision, predictive models, and intelligent automation &mdash; trained, deployed, and running on your data.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">COMPUTER VISION</span>
+        <span class="cap-tag">LLM</span>
+        <span class="cap-tag">PREDICTIVE</span>
+      </div>
+    </div>
+
+    <div class="cap-card ca-purple reveal reveal-d2" data-cap>
+      <div class="cap-icon">&#9634;</div>
+      <h3 class="cap-title">Mobile Apps</h3>
+      <p class="cap-desc">Native-quality iOS and Android apps that feel instant, sync in real time, and survive poor connectivity.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">iOS</span>
+        <span class="cap-tag">ANDROID</span>
+        <span class="cap-tag">CROSS-PLATFORM</span>
+      </div>
+    </div>
+
+    <div class="cap-card ca-green reveal" data-cap>
+      <div class="cap-icon">&#9650;</div>
+      <h3 class="cap-title">Cloud &amp; DevOps</h3>
+      <p class="cap-desc">Scalable infrastructure, CI/CD pipelines, and observability that keep your platform fast at any traffic.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">AWS</span>
+        <span class="cap-tag">DOCKER</span>
+        <span class="cap-tag">KUBERNETES</span>
+      </div>
+    </div>
+
+    <div class="cap-card ca-amber reveal reveal-d1" data-cap>
+      <div class="cap-icon">&#9681;</div>
+      <h3 class="cap-title">ERP / CRM / HRM</h3>
+      <p class="cap-desc">Business systems modeled on how your team actually works &mdash; inventory, sales, HR, finance, all in one clean stack.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">ERP</span>
+        <span class="cap-tag">CRM</span>
+        <span class="cap-tag">HRM</span>
+      </div>
+    </div>
+
+    <div class="cap-card ca-pink reveal reveal-d2" data-cap>
+      <div class="cap-icon">&#9675;</div>
+      <h3 class="cap-title">UI / UX Design</h3>
+      <p class="cap-desc">Design systems, product flows, and interfaces that make complex tools feel effortless to use.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">DESIGN SYSTEMS</span>
+        <span class="cap-tag">PROTOTYPING</span>
+      </div>
+    </div>
+
+    <div class="cap-card ca-red reveal" data-cap>
+      <div class="cap-icon">&#9733;</div>
+      <h3 class="cap-title">Cybersecurity</h3>
+      <p class="cap-desc">Assessments, compliance audits, penetration testing, and 24/7 monitoring &mdash; hardened from day one.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">PENTEST</span>
+        <span class="cap-tag">COMPLIANCE</span>
+        <span class="cap-tag">MONITORING</span>
+      </div>
+    </div>
+
+    <div class="cap-card ca-blue reveal reveal-d1" data-cap>
+      <div class="cap-icon">&#9729;</div>
+      <h3 class="cap-title">Digital Transformation</h3>
+      <p class="cap-desc">Legacy modernization done right &mdash; migrate, refactor, and re-architect without breaking what works today.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">LEGACY</span>
+        <span class="cap-tag">MIGRATION</span>
+      </div>
+    </div>
+
+    <div class="cap-card ca-teal reveal reveal-d2" data-cap>
+      <div class="cap-icon">&#9678;</div>
+      <h3 class="cap-title">IoT &amp; Integrations</h3>
+      <p class="cap-desc">Hardware integrations, GPS, cameras, sensors, and third-party APIs stitched into one unified platform.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">GPS</span>
+        <span class="cap-tag">CAMERAS</span>
+        <span class="cap-tag">WEBHOOKS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries-section" id="industries">
+  <div class="industries-header reveal">
+    <div class="section-label">Industries We Serve</div>
+    <h2 class="section-title scramble-text">Deep expertise across sectors.</h2>
+    <p>Every industry has its own chaos. We've learned the rules of many &mdash; and we write software that bends them.</p>
+  </div>
+
+  <div class="industry-grid">
+    <div class="industry-card reveal" style="--ic:#F97316">
+      <div class="industry-icon">&#9679;</div>
+      <div class="industry-name">Logistics &amp; Fleet</div>
+      <div class="industry-examples">TRUCKING · SHIPPING · LAST-MILE</div>
+    </div>
+    <div class="industry-card reveal reveal-d1" style="--ic:#06b6d4">
+      <div class="industry-icon">&#9670;</div>
+      <div class="industry-name">Manufacturing</div>
+      <div class="industry-examples">PLYWOOD · FACTORIES · PLANTS</div>
+    </div>
+    <div class="industry-card reveal reveal-d2" style="--ic:#a855f7">
+      <div class="industry-icon">&#9672;</div>
+      <div class="industry-name">Retail &amp; E-commerce</div>
+      <div class="industry-examples">SHOWROOMS · D2C · MARKETPLACES</div>
+    </div>
+    <div class="industry-card reveal reveal-d3" style="--ic:#22c55e">
+      <div class="industry-icon">&#9674;</div>
+      <div class="industry-name">Healthcare</div>
+      <div class="industry-examples">CLINICS · DIAGNOSTICS · PHARMA</div>
+    </div>
+    <div class="industry-card reveal" style="--ic:#3b82f6">
+      <div class="industry-icon">&#9671;</div>
+      <div class="industry-name">Financial Services</div>
+      <div class="industry-examples">FINTECH · LENDING · PAYMENTS</div>
+    </div>
+    <div class="industry-card reveal reveal-d1" style="--ic:#ec4899">
+      <div class="industry-icon">&#9733;</div>
+      <div class="industry-name">Education</div>
+      <div class="industry-examples">EDTECH · LMS · ASSESSMENTS</div>
+    </div>
+    <div class="industry-card reveal reveal-d2" style="--ic:#f59e0b">
+      <div class="industry-icon">&#9673;</div>
+      <div class="industry-name">Hospitality</div>
+      <div class="industry-examples">HOTELS · RESTAURANTS · EVENTS</div>
+    </div>
+    <div class="industry-card reveal reveal-d3" style="--ic:#14b8a6">
+      <div class="industry-icon">&#9650;</div>
+      <div class="industry-name">Real Estate</div>
+      <div class="industry-examples">PROPTECH · CRM · LISTINGS</div>
+    </div>
+    <div class="industry-card reveal" style="--ic:#ef4444">
+      <div class="industry-icon">&#9675;</div>
+      <div class="industry-name">Security &amp; Surveillance</div>
+      <div class="industry-examples">CCTV · ACCESS · MONITORING</div>
+    </div>
+    <div class="industry-card reveal reveal-d1" style="--ic:#22d3ee">
+      <div class="industry-icon">&#9678;</div>
+      <div class="industry-name">Supply Chain</div>
+      <div class="industry-examples">WAREHOUSING · INVENTORY · 3PL</div>
+    </div>
+    <div class="industry-card reveal reveal-d2" style="--ic:#84cc16">
+      <div class="industry-icon">&#9681;</div>
+      <div class="industry-name">Agriculture</div>
+      <div class="industry-examples">AGRITECH · TRACEABILITY</div>
+    </div>
+    <div class="industry-card reveal reveal-d3" style="--ic:#c084fc">
+      <div class="industry-icon">&#9634;</div>
+      <div class="industry-name">Sports &amp; Gaming</div>
+      <div class="industry-examples">ESPORTS · COMPETITIONS · APPS</div>
     </div>
   </div>
 </section>
@@ -1607,6 +1931,17 @@
     });
     card.addEventListener('mouseenter', () => {
       card.style.transition = '';
+    });
+  });
+
+  // ═══════════ CURSOR-FOLLOW GRADIENT ON CAP CARDS ═══════════
+  if (!isMobile) document.querySelectorAll('[data-cap]').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
     });
   });
 
