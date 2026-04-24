@@ -104,12 +104,12 @@
   /* ═══════════ NAV ═══════════ */
   nav {
     position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 100;
-    padding: 14px 32px; width: auto; max-width: 700px;
-    display: flex; justify-content: space-between; align-items: center; gap: 40px;
+    padding: 12px 14px 12px 24px; width: auto; max-width: 920px;
+    display: flex; justify-content: space-between; align-items: center; gap: 28px;
     backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 100px;
+    border-radius: 100px; white-space: nowrap;
     transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
     animation: navSlideDown 1s ease 0.2s both;
   }
@@ -143,11 +143,12 @@
   @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   .logo-text { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; white-space: nowrap; }
 
-  .nav-links { display: flex; gap: 8px; align-items: center; list-style: none; }
+  .nav-links { display: flex; gap: 4px; align-items: center; list-style: none; flex-wrap: nowrap; }
   .nav-links a {
     text-decoration: none; color: var(--text-muted); font-size: 13px;
     font-weight: 500; transition: all 0.3s ease; position: relative;
-    padding: 6px 14px; border-radius: 100px; cursor: none;
+    padding: 6px 12px; border-radius: 100px; cursor: none;
+    white-space: nowrap;
   }
   .nav-links a::before {
     content: ''; position: absolute; bottom: 2px; left: 50%; width: 0; height: 2px;
@@ -160,6 +161,7 @@
     background: linear-gradient(135deg, var(--accent), #ea580c) !important;
     color: #fff !important; font-weight: 600 !important;
     box-shadow: 0 0 20px rgba(249,115,22,0.2);
+    padding: 8px 18px !important; white-space: nowrap; margin-left: 8px;
     transition: all 0.3s ease !important;
   }
   .nav-cta::before { display: none !important; }
@@ -637,6 +639,42 @@
     overflow: hidden; transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
     cursor: default;
   }
+
+  /* Featured (flagship) card — spans 2 columns, richer visuals */
+  .cap-card.is-featured {
+    grid-column: span 2; padding: 48px 44px;
+    background: linear-gradient(135deg, rgba(245,158,11,0.06), rgba(249,115,22,0.04) 40%, rgba(255,255,255,0.01) 80%);
+  }
+  .cap-card.is-featured::after { opacity: 0.5; }
+  .cap-card.is-featured .cap-title { font-size: 30px; }
+  .cap-card.is-featured .cap-desc { font-size: 15px; max-width: 560px; }
+  .cap-card.is-featured .cap-icon { width: 64px; height: 64px; font-size: 28px; margin-bottom: 28px; }
+  .cap-featured-badge {
+    position: absolute; top: 20px; right: 20px; z-index: 2;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 100px; font-size: 10px;
+    font-weight: 700; letter-spacing: 1.5px; font-family: 'JetBrains Mono', monospace;
+    background: linear-gradient(135deg, #f59e0b, #F97316); color: #fff;
+    box-shadow: 0 4px 16px rgba(245,158,11,0.3);
+  }
+  .cap-featured-badge::before {
+    content: '★'; font-size: 11px;
+  }
+  .cap-erp-modules {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    margin-top: 24px;
+  }
+  .cap-module {
+    padding: 12px 14px; border-radius: 10px;
+    background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+    font-size: 12px; color: var(--text-muted); transition: all 0.3s ease;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cap-module:hover { color: #f59e0b; border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.04); }
+  .cap-module-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #f59e0b;
+    box-shadow: 0 0 8px #f59e0b; flex-shrink: 0;
+  }
   .cap-card::before {
     content: ''; position: absolute; inset: 0;
     background: radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(249,115,22,0.08), transparent 40%);
@@ -742,6 +780,85 @@
     font-family: 'JetBrains Mono', monospace; font-size: 10px;
     color: var(--text-dim); letter-spacing: 0.5px;
   }
+
+  /* ═══════════ PROJECTS SHIPPED SHOWCASE ═══════════ */
+  .projects-section { max-width: 1280px; margin: 0 auto; position: relative; }
+  .projects-header { text-align: center; margin-bottom: 70px; }
+  .projects-header .section-title { margin: 0 auto; }
+  .projects-header p {
+    color: var(--text-muted); font-size: 18px; margin-top: 20px;
+    font-weight: 300; max-width: 620px; margin-left: auto; margin-right: auto;
+  }
+
+  .projects-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin-bottom: 56px;
+  }
+  .proj-stat {
+    padding: 32px 24px; border-radius: 20px;
+    background: rgba(255,255,255,0.015); border: 1px solid var(--border);
+    text-align: center; transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+    position: relative; overflow: hidden;
+  }
+  .proj-stat::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ps, var(--accent)), transparent);
+    opacity: 0; transition: opacity 0.5s ease;
+  }
+  .proj-stat:hover { transform: translateY(-6px); border-color: var(--ps, var(--accent)); }
+  .proj-stat:hover::before { opacity: 1; }
+  .proj-stat-val {
+    font-family: 'DM Serif Display', serif; font-size: 56px;
+    color: var(--ps, var(--accent)); letter-spacing: -2px; line-height: 1;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--ps, var(--accent)), var(--ps2, #fbbf24));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .proj-stat-label {
+    font-size: 12px; color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: 2px; font-weight: 600;
+  }
+  .proj-stat-sub {
+    font-size: 11px; color: var(--text-dim); margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px;
+  }
+
+  .projects-marquee-wrap {
+    position: relative; overflow: hidden; padding: 24px 0;
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.01);
+  }
+  .projects-marquee-wrap::before, .projects-marquee-wrap::after {
+    content: ''; position: absolute; top: 0; width: 120px; height: 100%; z-index: 2;
+    pointer-events: none;
+  }
+  .projects-marquee-wrap::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+  .projects-marquee-wrap::after { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
+  .projects-marquee {
+    display: flex; gap: 40px; animation: projectMarquee 30s linear infinite;
+    width: max-content;
+  }
+  .proj-chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 20px; border-radius: 100px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    font-size: 13px; color: var(--text); white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+  .proj-chip:hover {
+    border-color: var(--accent); color: var(--accent);
+    background: rgba(249,115,22,0.05);
+  }
+  .proj-chip-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--pc-color, var(--accent));
+    box-shadow: 0 0 8px var(--pc-color, var(--accent));
+  }
+  .proj-chip-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--text-dim); letter-spacing: 0.5px;
+  }
+  @keyframes projectMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   /* ═══════════ PROCESS / HOW WE WORK ═══════════ */
   .process-section { max-width: 1200px; margin: 0 auto; position: relative; }
@@ -1052,6 +1169,14 @@
   .reveal-d3 { transition-delay: 0.45s; }
   .reveal-d4 { transition-delay: 0.6s; }
 
+  /* ═══════════ RESPONSIVE — MID-DESKTOP (hide some nav links) ═══════════ */
+  @media (max-width: 1100px) and (min-width: 901px) {
+    nav { max-width: 92%; padding: 10px 12px 10px 20px; gap: 16px; }
+    .nav-links { gap: 2px; }
+    .nav-links a { font-size: 12px; padding: 5px 10px; }
+    .nav-cta { font-size: 12px !important; padding: 7px 14px !important; }
+  }
+
   /* ═══════════ RESPONSIVE — TABLET ═══════════ */
   @media (max-width: 900px) {
     body { cursor: auto; }
@@ -1148,6 +1273,28 @@
     .industries-header { margin-bottom: 48px; }
     .industries-header p { font-size: 15px; }
     .industries-section::before { width: 400px; height: 400px; }
+
+    /* Featured ERP card */
+    .cap-card.is-featured { grid-column: span 1; padding: 28px 24px; }
+    .cap-card.is-featured .cap-title { font-size: 20px; }
+    .cap-card.is-featured .cap-desc { font-size: 13px; }
+    .cap-card.is-featured .cap-icon { width: 44px; height: 44px; font-size: 20px; margin-bottom: 16px; }
+    .cap-featured-badge { top: 14px; right: 14px; font-size: 9px; padding: 4px 10px; }
+    .cap-erp-modules { grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 16px; }
+    .cap-module { padding: 10px 12px; font-size: 11px; }
+
+    /* Projects section */
+    .projects-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 36px; }
+    .proj-stat { padding: 20px 14px; border-radius: 14px; }
+    .proj-stat-val { font-size: 36px; letter-spacing: -1px; }
+    .proj-stat-label { font-size: 10px; letter-spacing: 1.5px; }
+    .proj-stat-sub { font-size: 9px; }
+    .projects-header { margin-bottom: 40px; }
+    .projects-header p { font-size: 15px; }
+    .projects-marquee-wrap { padding: 16px 0; }
+    .proj-chip { padding: 8px 14px; font-size: 11px; gap: 8px; }
+    .proj-chip-tag { font-size: 9px; }
+    .projects-marquee { gap: 20px; }
 
     /* Process */
     .process-grid { grid-template-columns: 1fr; gap: 14px; }
@@ -1627,14 +1774,21 @@
       <span class="cap-hint">EXPLORE &rarr;</span>
     </div>
 
-    <div class="cap-card ca-amber reveal reveal-d1" data-cap data-modal="m-erp">
+    <div class="cap-card ca-amber is-featured reveal reveal-d1" data-cap data-modal="m-erp">
+      <span class="cap-featured-badge">FLAGSHIP SERVICE</span>
       <div class="cap-icon">&#9681;</div>
       <h3 class="cap-title">ERP / CRM / HRM</h3>
-      <p class="cap-desc">Business systems modeled on how your team actually works &mdash; inventory, sales, HR, finance, all in one clean stack.</p>
-      <div class="cap-tags">
-        <span class="cap-tag">ERP</span>
-        <span class="cap-tag">CRM</span>
-        <span class="cap-tag">HRM</span>
+      <p class="cap-desc">Business systems modeled on how your team actually works. We've shipped custom ERPs across manufacturing, retail, distribution, and services &mdash; inventory, sales, HR, finance, compliance, all in one stack you'll actually want to log into.</p>
+      <div class="cap-erp-modules">
+        <div class="cap-module"><span class="cap-module-dot"></span>Inventory</div>
+        <div class="cap-module"><span class="cap-module-dot"></span>Sales & Quotes</div>
+        <div class="cap-module"><span class="cap-module-dot"></span>Invoicing</div>
+        <div class="cap-module"><span class="cap-module-dot"></span>HR & Payroll</div>
+        <div class="cap-module"><span class="cap-module-dot"></span>CRM Pipelines</div>
+        <div class="cap-module"><span class="cap-module-dot"></span>Finance</div>
+        <div class="cap-module"><span class="cap-module-dot"></span>Vendor Mgmt</div>
+        <div class="cap-module"><span class="cap-module-dot"></span>Reporting</div>
+        <div class="cap-module"><span class="cap-module-dot"></span>Compliance</div>
       </div>
       <span class="cap-hint">EXPLORE &rarr;</span>
     </div>
@@ -1767,6 +1921,68 @@
       <div class="industry-name">Sports &amp; Gaming</div>
       <div class="industry-examples">ESPORTS · COMPETITIONS · APPS</div>
       <span class="industry-hint">VIEW &rarr;</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS SHIPPED -->
+<section class="projects-section" id="track-record">
+  <div class="projects-header reveal">
+    <div class="section-label">Track Record</div>
+    <h2 class="section-title scramble-text">Projects shipped. Industries mastered.</h2>
+    <p>Ten years of shipping software has taught us one thing &mdash; there's no domain that can't be made faster, smarter, and more profitable with the right platform.</p>
+  </div>
+
+  <div class="projects-stats reveal reveal-d1">
+    <div class="proj-stat" style="--ps:#F97316;--ps2:#fbbf24">
+      <div class="proj-stat-val">50+</div>
+      <div class="proj-stat-label">Projects Shipped</div>
+      <div class="proj-stat-sub">STARTUPS TO ENTERPRISES</div>
+    </div>
+    <div class="proj-stat" style="--ps:#06b6d4;--ps2:#67e8f9">
+      <div class="proj-stat-val">20+</div>
+      <div class="proj-stat-label">Industries Served</div>
+      <div class="proj-stat-sub">LOGISTICS · RETAIL · PHARMA</div>
+    </div>
+    <div class="proj-stat" style="--ps:#a855f7;--ps2:#d8b4fe">
+      <div class="proj-stat-val">10<span style="font-size:36px">yrs</span></div>
+      <div class="proj-stat-label">In Production</div>
+      <div class="proj-stat-sub">SHIPPING SINCE 2015</div>
+    </div>
+    <div class="proj-stat" style="--ps:#22c55e;--ps2:#86efac">
+      <div class="proj-stat-val">24/7</div>
+      <div class="proj-stat-label">Running Live</div>
+      <div class="proj-stat-sub">PRODUCTION UPTIME</div>
+    </div>
+  </div>
+
+  <div class="projects-marquee-wrap reveal reveal-d2">
+    <div class="projects-marquee">
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#F97316"></span>Fleet Intelligence <span class="proj-chip-tag">LOGISTICS</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#f59e0b"></span>Plywood ERP <span class="proj-chip-tag">MANUFACTURING</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#06b6d4"></span>CCTV Vision AI <span class="proj-chip-tag">SECURITY</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#a855f7"></span>Jewelry Commerce <span class="proj-chip-tag">RETAIL</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#22c55e"></span>Clinic EMR <span class="proj-chip-tag">HEALTHCARE</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#3b82f6"></span>Lending Platform <span class="proj-chip-tag">FINTECH</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#ec4899"></span>LMS Portal <span class="proj-chip-tag">EDUCATION</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#14b8a6"></span>Hotel PMS <span class="proj-chip-tag">HOSPITALITY</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#ef4444"></span>Showroom CRM <span class="proj-chip-tag">RETAIL</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#84cc16"></span>Agritech Platform <span class="proj-chip-tag">AGRICULTURE</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#22d3ee"></span>Warehouse WMS <span class="proj-chip-tag">SUPPLY CHAIN</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#c084fc"></span>Esports Platform <span class="proj-chip-tag">GAMING</span></span>
+      <!-- duplicate for seamless loop -->
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#F97316"></span>Fleet Intelligence <span class="proj-chip-tag">LOGISTICS</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#f59e0b"></span>Plywood ERP <span class="proj-chip-tag">MANUFACTURING</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#06b6d4"></span>CCTV Vision AI <span class="proj-chip-tag">SECURITY</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#a855f7"></span>Jewelry Commerce <span class="proj-chip-tag">RETAIL</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#22c55e"></span>Clinic EMR <span class="proj-chip-tag">HEALTHCARE</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#3b82f6"></span>Lending Platform <span class="proj-chip-tag">FINTECH</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#ec4899"></span>LMS Portal <span class="proj-chip-tag">EDUCATION</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#14b8a6"></span>Hotel PMS <span class="proj-chip-tag">HOSPITALITY</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#ef4444"></span>Showroom CRM <span class="proj-chip-tag">RETAIL</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#84cc16"></span>Agritech Platform <span class="proj-chip-tag">AGRICULTURE</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#22d3ee"></span>Warehouse WMS <span class="proj-chip-tag">SUPPLY CHAIN</span></span>
+      <span class="proj-chip"><span class="proj-chip-dot" style="--pc-color:#c084fc"></span>Esports Platform <span class="proj-chip-tag">GAMING</span></span>
     </div>
   </div>
 </section>
