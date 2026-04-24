@@ -743,6 +743,201 @@
     color: var(--text-dim); letter-spacing: 0.5px;
   }
 
+  /* ═══════════ PROCESS / HOW WE WORK ═══════════ */
+  .process-section { max-width: 1200px; margin: 0 auto; position: relative; }
+  .process-header { text-align: center; margin-bottom: 80px; }
+  .process-header .section-title { margin: 0 auto; }
+  .process-header p {
+    color: var(--text-muted); font-size: 18px; margin-top: 20px;
+    font-weight: 300; max-width: 620px; margin-left: auto; margin-right: auto;
+  }
+
+  .process-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    position: relative;
+  }
+  .process-grid::before {
+    content: ''; position: absolute; top: 52px; left: 10%; right: 10%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(249,115,22,0.4), rgba(6,182,212,0.4), rgba(168,85,247,0.4), rgba(34,197,94,0.4), transparent);
+    z-index: 0;
+  }
+  .process-step {
+    position: relative; padding: 32px 24px;
+    border-radius: 22px; border: 1px solid var(--border);
+    background: rgba(255,255,255,0.015);
+    transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+    z-index: 1;
+  }
+  .process-step:hover {
+    transform: translateY(-6px); border-color: var(--border-hover);
+    background: rgba(255,255,255,0.03);
+  }
+  .process-num {
+    width: 48px; height: 48px; border-radius: 50%; background: var(--bg);
+    border: 1px solid var(--pc, var(--accent));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 700;
+    color: var(--pc, var(--accent)); margin: 0 auto 20px;
+    position: relative; transition: all 0.5s ease;
+    box-shadow: 0 0 0 6px var(--bg);
+  }
+  .process-step:hover .process-num {
+    box-shadow: 0 0 0 6px var(--bg), 0 0 24px var(--pc, var(--accent));
+    transform: scale(1.08);
+  }
+  .process-title {
+    font-family: 'DM Serif Display', serif; font-size: 22px;
+    text-align: center; margin-bottom: 10px; color: var(--text);
+  }
+  .process-desc {
+    font-size: 13px; color: var(--text-muted); text-align: center;
+    line-height: 1.7; font-weight: 300;
+  }
+
+  /* ═══════════ MODAL SYSTEM ═══════════ */
+  .cap-card, .industry-card { cursor: pointer; }
+  .cap-card::before, .industry-card::before { z-index: 0; }
+  .cap-card > *, .industry-card > * { position: relative; z-index: 1; }
+  .cap-card, .industry-card { isolation: isolate; }
+
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 9998; display: none;
+    background: rgba(0,0,0,0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    opacity: 0; transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
+    align-items: flex-start; justify-content: center; padding: 60px 24px;
+    overflow-y: auto; overscroll-behavior: contain;
+  }
+  .modal-backdrop.active { display: flex; opacity: 1; }
+
+  .modal {
+    position: relative; max-width: 720px; width: 100%;
+    background: linear-gradient(145deg, rgba(20,20,30,0.98), rgba(6,6,12,0.98));
+    border: 1px solid var(--border-hover); border-radius: 28px;
+    padding: 56px 52px; transform: translateY(40px) scale(0.96);
+    transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    overflow: hidden; margin: auto 0;
+  }
+  .modal-backdrop.active .modal { transform: translateY(0) scale(1); }
+
+  .modal::before {
+    content: ''; position: absolute; top: -50%; right: -30%; width: 600px; height: 600px;
+    background: radial-gradient(circle, var(--mc, var(--accent)) 0%, transparent 60%);
+    opacity: 0.08; pointer-events: none; filter: blur(40px);
+  }
+  .modal::after {
+    content: ''; position: absolute; inset: 0; border-radius: 28px;
+    padding: 1px; background: linear-gradient(135deg, var(--mc, var(--accent)) 0%, transparent 60%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0.3; pointer-events: none;
+  }
+
+  .modal > * { position: relative; z-index: 1; }
+
+  .modal-close {
+    position: absolute; top: 20px; right: 20px; width: 40px; height: 40px;
+    border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    color: var(--text-muted); display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 22px; transition: all 0.3s ease; z-index: 2;
+  }
+  .modal-close:hover { background: rgba(255,255,255,0.1); color: var(--text); transform: rotate(90deg); }
+
+  .modal-icon {
+    width: 64px; height: 64px; border-radius: 18px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--mc, var(--accent)); font-size: 28px; margin-bottom: 24px;
+    box-shadow: 0 0 40px rgba(249,115,22,0);
+  }
+  .modal-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px;
+    color: var(--mc, var(--accent)); margin-bottom: 12px; font-weight: 500;
+  }
+  .modal-title {
+    font-family: 'DM Serif Display', serif; font-size: 42px; letter-spacing: -1.2px;
+    line-height: 1.1; margin-bottom: 14px; color: var(--text);
+  }
+  .modal-tagline {
+    font-family: 'DM Serif Display', serif; font-style: italic; font-size: 18px;
+    color: var(--text-muted); margin-bottom: 28px;
+  }
+  .modal-desc { color: var(--text-muted); font-size: 15px; line-height: 1.8; font-weight: 300; margin-bottom: 32px; }
+
+  .modal-section { margin-bottom: 28px; }
+  .modal-section-title {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--text-dim); font-weight: 600; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .modal-section-title::before {
+    content: ''; width: 20px; height: 1px; background: var(--mc, var(--accent)); display: inline-block;
+  }
+
+  .modal-list { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+  .modal-list li {
+    font-size: 14px; color: var(--text); padding-left: 20px;
+    position: relative; line-height: 1.6;
+  }
+  .modal-list li::before {
+    content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--mc, var(--accent)); opacity: 0.8;
+  }
+
+  .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .modal-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    padding: 5px 12px; border-radius: 100px;
+    border: 1px solid var(--border); color: var(--text-muted);
+    background: rgba(255,255,255,0.02); letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+  .modal-tag:hover { color: var(--mc, var(--accent)); border-color: var(--mc, var(--accent)); }
+
+  .modal-cta-row {
+    margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--border);
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .modal-btn {
+    padding: 13px 28px; border-radius: 100px; font-size: 14px; font-weight: 600;
+    text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;
+    border: none; cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+  }
+  .modal-btn-primary {
+    background: var(--mc, var(--accent)); color: #fff;
+  }
+  .modal-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(249,115,22,0.3); }
+  .modal-btn-ghost {
+    background: transparent; color: var(--text-muted); border: 1px solid var(--border);
+  }
+  .modal-btn-ghost:hover { color: var(--text); border-color: var(--border-hover); }
+
+  .modal-stat-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px;
+  }
+  .modal-stat {
+    padding: 16px; border-radius: 14px; background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border); text-align: center;
+  }
+  .modal-stat-val {
+    font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700;
+    color: var(--mc, var(--accent)); letter-spacing: -0.5px;
+  }
+  .modal-stat-label {
+    font-size: 10px; color: var(--text-dim); text-transform: uppercase;
+    letter-spacing: 1px; margin-top: 4px;
+  }
+
+  /* Click hint on cards */
+  .cap-card .cap-hint, .industry-card .industry-hint {
+    position: absolute; bottom: 14px; right: 16px; font-size: 11px;
+    font-family: 'JetBrains Mono', monospace; color: var(--text-dim);
+    opacity: 0; transform: translateX(-6px); transition: all 0.4s ease;
+    letter-spacing: 0.5px; pointer-events: none;
+  }
+  .cap-card:hover .cap-hint, .industry-card:hover .industry-hint {
+    opacity: 0.8; transform: translateX(0);
+  }
+
   /* ═══════════ TECH STACK SECTION ═══════════ */
   .tech-section { text-align: center; }
   .tech-section .section-title { margin: 0 auto 60px; }
@@ -954,6 +1149,33 @@
     .industries-header p { font-size: 15px; }
     .industries-section::before { width: 400px; height: 400px; }
 
+    /* Process */
+    .process-grid { grid-template-columns: 1fr; gap: 14px; }
+    .process-grid::before { display: none; }
+    .process-step { padding: 24px 20px; }
+    .process-num { width: 40px; height: 40px; font-size: 14px; margin-bottom: 14px; }
+    .process-title { font-size: 18px; }
+    .process-desc { font-size: 13px; }
+    .process-header { margin-bottom: 48px; }
+    .process-header p { font-size: 15px; }
+
+    /* Modal */
+    .modal-backdrop { padding: 20px 16px; }
+    .modal { padding: 36px 24px; border-radius: 20px; }
+    .modal-title { font-size: 30px; letter-spacing: -0.8px; }
+    .modal-tagline { font-size: 15px; }
+    .modal-desc { font-size: 14px; }
+    .modal-list { grid-template-columns: 1fr; gap: 8px; }
+    .modal-list li { font-size: 13px; }
+    .modal-icon { width: 52px; height: 52px; font-size: 22px; margin-bottom: 18px; }
+    .modal-close { width: 36px; height: 36px; font-size: 20px; top: 14px; right: 14px; }
+    .modal-stat-row { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .modal-stat { padding: 12px 8px; }
+    .modal-stat-val { font-size: 18px; }
+    .modal-cta-row { flex-direction: column; }
+    .modal-btn { width: 100%; justify-content: center; }
+    .cap-hint, .industry-hint { display: none; }
+
     /* Tech */
     .tech-grid { gap: 10px; }
     .tech-item { padding: 10px 18px; font-size: 11px; }
@@ -1109,9 +1331,10 @@
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#products">Products</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#products">Products</a></li>
     <li><a href="#industries">Industries</a></li>
+    <li><a href="#process">Process</a></li>
     <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
   </ul>
 </nav>
@@ -1133,7 +1356,7 @@
   </div>
   <div class="hero-badge">
     <span class="dot"></span>
-    Building the future, shipping today
+    A decade of shipping software that works
   </div>
   <h1 id="heroTitle"></h1>
   <p class="hero-sub">We're the technology partner for businesses that can't afford to stand still. From shipped products to custom enterprise platforms, AI systems, and cloud infrastructure &mdash; we build software that moves industries forward.</p>
@@ -1154,19 +1377,19 @@
       <div class="reveal-left">
         <div class="section-label">Who We Are</div>
         <h2 class="section-title scramble-text">A product studio that builds like a team you wish you had.</h2>
-        <p class="about-text">We're a software company obsessed with solving real operational pain. We ship our own products, and we build custom platforms for companies that need serious software, fast. Two mindsets, one standard: everything we put out has to work in the wild on day one.</p>
+        <p class="about-text">We've been shipping software for over a decade &mdash; for startups, enterprises, and everything in between. We build our own products, and we build custom platforms for companies that need serious software, fast. Two mindsets, one standard: everything we put out has to work in the wild on day one.</p>
         <div class="stats-row">
           <div class="stat-item">
-            <div class="stat-number" data-count="2">0</div>
-            <div class="stat-label">Live Products</div>
+            <div class="stat-number" data-count="10">0</div>
+            <div class="stat-label">Years Shipping</div>
           </div>
           <div class="stat-item">
-            <div class="stat-number" data-count="60">0</div>
-            <div class="stat-label">Second Setup</div>
+            <div class="stat-number" data-count="20">0</div>
+            <div class="stat-label">Industries Served</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">24/7</div>
-            <div class="stat-label">Monitoring</div>
+            <div class="stat-label">In Production</div>
           </div>
         </div>
       </div>
@@ -1356,7 +1579,7 @@
   </div>
 
   <div class="cap-grid">
-    <div class="cap-card ca-orange reveal" data-cap>
+    <div class="cap-card ca-orange reveal" data-cap data-modal="m-custom">
       <div class="cap-icon">&#9670;</div>
       <h3 class="cap-title">Custom Software</h3>
       <p class="cap-desc">Tailored web and enterprise platforms engineered around your exact workflow &mdash; no off-the-shelf compromises.</p>
@@ -1365,9 +1588,10 @@
         <span class="cap-tag">DASHBOARDS</span>
         <span class="cap-tag">APIs</span>
       </div>
+      <span class="cap-hint">EXPLORE &rarr;</span>
     </div>
 
-    <div class="cap-card ca-cyan reveal reveal-d1" data-cap>
+    <div class="cap-card ca-cyan reveal reveal-d1" data-cap data-modal="m-ai">
       <div class="cap-icon">&#9672;</div>
       <h3 class="cap-title">AI &amp; Machine Learning</h3>
       <p class="cap-desc">Computer vision, predictive models, and intelligent automation &mdash; trained, deployed, and running on your data.</p>
@@ -1376,9 +1600,10 @@
         <span class="cap-tag">LLM</span>
         <span class="cap-tag">PREDICTIVE</span>
       </div>
+      <span class="cap-hint">EXPLORE &rarr;</span>
     </div>
 
-    <div class="cap-card ca-purple reveal reveal-d2" data-cap>
+    <div class="cap-card ca-purple reveal reveal-d2" data-cap data-modal="m-mobile">
       <div class="cap-icon">&#9634;</div>
       <h3 class="cap-title">Mobile Apps</h3>
       <p class="cap-desc">Native-quality iOS and Android apps that feel instant, sync in real time, and survive poor connectivity.</p>
@@ -1387,9 +1612,10 @@
         <span class="cap-tag">ANDROID</span>
         <span class="cap-tag">CROSS-PLATFORM</span>
       </div>
+      <span class="cap-hint">EXPLORE &rarr;</span>
     </div>
 
-    <div class="cap-card ca-green reveal" data-cap>
+    <div class="cap-card ca-green reveal" data-cap data-modal="m-cloud">
       <div class="cap-icon">&#9650;</div>
       <h3 class="cap-title">Cloud &amp; DevOps</h3>
       <p class="cap-desc">Scalable infrastructure, CI/CD pipelines, and observability that keep your platform fast at any traffic.</p>
@@ -1398,9 +1624,10 @@
         <span class="cap-tag">DOCKER</span>
         <span class="cap-tag">KUBERNETES</span>
       </div>
+      <span class="cap-hint">EXPLORE &rarr;</span>
     </div>
 
-    <div class="cap-card ca-amber reveal reveal-d1" data-cap>
+    <div class="cap-card ca-amber reveal reveal-d1" data-cap data-modal="m-erp">
       <div class="cap-icon">&#9681;</div>
       <h3 class="cap-title">ERP / CRM / HRM</h3>
       <p class="cap-desc">Business systems modeled on how your team actually works &mdash; inventory, sales, HR, finance, all in one clean stack.</p>
@@ -1409,9 +1636,10 @@
         <span class="cap-tag">CRM</span>
         <span class="cap-tag">HRM</span>
       </div>
+      <span class="cap-hint">EXPLORE &rarr;</span>
     </div>
 
-    <div class="cap-card ca-pink reveal reveal-d2" data-cap>
+    <div class="cap-card ca-pink reveal reveal-d2" data-cap data-modal="m-design">
       <div class="cap-icon">&#9675;</div>
       <h3 class="cap-title">UI / UX Design</h3>
       <p class="cap-desc">Design systems, product flows, and interfaces that make complex tools feel effortless to use.</p>
@@ -1419,9 +1647,10 @@
         <span class="cap-tag">DESIGN SYSTEMS</span>
         <span class="cap-tag">PROTOTYPING</span>
       </div>
+      <span class="cap-hint">EXPLORE &rarr;</span>
     </div>
 
-    <div class="cap-card ca-red reveal" data-cap>
+    <div class="cap-card ca-red reveal" data-cap data-modal="m-security">
       <div class="cap-icon">&#9733;</div>
       <h3 class="cap-title">Cybersecurity</h3>
       <p class="cap-desc">Assessments, compliance audits, penetration testing, and 24/7 monitoring &mdash; hardened from day one.</p>
@@ -1430,9 +1659,10 @@
         <span class="cap-tag">COMPLIANCE</span>
         <span class="cap-tag">MONITORING</span>
       </div>
+      <span class="cap-hint">EXPLORE &rarr;</span>
     </div>
 
-    <div class="cap-card ca-blue reveal reveal-d1" data-cap>
+    <div class="cap-card ca-blue reveal reveal-d1" data-cap data-modal="m-transform">
       <div class="cap-icon">&#9729;</div>
       <h3 class="cap-title">Digital Transformation</h3>
       <p class="cap-desc">Legacy modernization done right &mdash; migrate, refactor, and re-architect without breaking what works today.</p>
@@ -1440,9 +1670,10 @@
         <span class="cap-tag">LEGACY</span>
         <span class="cap-tag">MIGRATION</span>
       </div>
+      <span class="cap-hint">EXPLORE &rarr;</span>
     </div>
 
-    <div class="cap-card ca-teal reveal reveal-d2" data-cap>
+    <div class="cap-card ca-teal reveal reveal-d2" data-cap data-modal="m-iot">
       <div class="cap-icon">&#9678;</div>
       <h3 class="cap-title">IoT &amp; Integrations</h3>
       <p class="cap-desc">Hardware integrations, GPS, cameras, sensors, and third-party APIs stitched into one unified platform.</p>
@@ -1451,6 +1682,7 @@
         <span class="cap-tag">CAMERAS</span>
         <span class="cap-tag">WEBHOOKS</span>
       </div>
+      <span class="cap-hint">EXPLORE &rarr;</span>
     </div>
   </div>
 </section>
@@ -1464,65 +1696,109 @@
   </div>
 
   <div class="industry-grid">
-    <div class="industry-card reveal" style="--ic:#F97316">
+    <div class="industry-card reveal" style="--ic:#F97316" data-modal="i-logistics">
       <div class="industry-icon">&#9679;</div>
       <div class="industry-name">Logistics &amp; Fleet</div>
       <div class="industry-examples">TRUCKING · SHIPPING · LAST-MILE</div>
+      <span class="industry-hint">VIEW &rarr;</span>
     </div>
-    <div class="industry-card reveal reveal-d1" style="--ic:#06b6d4">
+    <div class="industry-card reveal reveal-d1" style="--ic:#06b6d4" data-modal="i-manufacturing">
       <div class="industry-icon">&#9670;</div>
       <div class="industry-name">Manufacturing</div>
       <div class="industry-examples">PLYWOOD · FACTORIES · PLANTS</div>
+      <span class="industry-hint">VIEW &rarr;</span>
     </div>
-    <div class="industry-card reveal reveal-d2" style="--ic:#a855f7">
+    <div class="industry-card reveal reveal-d2" style="--ic:#a855f7" data-modal="i-retail">
       <div class="industry-icon">&#9672;</div>
       <div class="industry-name">Retail &amp; E-commerce</div>
       <div class="industry-examples">SHOWROOMS · D2C · MARKETPLACES</div>
+      <span class="industry-hint">VIEW &rarr;</span>
     </div>
-    <div class="industry-card reveal reveal-d3" style="--ic:#22c55e">
+    <div class="industry-card reveal reveal-d3" style="--ic:#22c55e" data-modal="i-healthcare">
       <div class="industry-icon">&#9674;</div>
       <div class="industry-name">Healthcare</div>
       <div class="industry-examples">CLINICS · DIAGNOSTICS · PHARMA</div>
+      <span class="industry-hint">VIEW &rarr;</span>
     </div>
-    <div class="industry-card reveal" style="--ic:#3b82f6">
+    <div class="industry-card reveal" style="--ic:#3b82f6" data-modal="i-finance">
       <div class="industry-icon">&#9671;</div>
       <div class="industry-name">Financial Services</div>
       <div class="industry-examples">FINTECH · LENDING · PAYMENTS</div>
+      <span class="industry-hint">VIEW &rarr;</span>
     </div>
-    <div class="industry-card reveal reveal-d1" style="--ic:#ec4899">
+    <div class="industry-card reveal reveal-d1" style="--ic:#ec4899" data-modal="i-education">
       <div class="industry-icon">&#9733;</div>
       <div class="industry-name">Education</div>
       <div class="industry-examples">EDTECH · LMS · ASSESSMENTS</div>
+      <span class="industry-hint">VIEW &rarr;</span>
     </div>
-    <div class="industry-card reveal reveal-d2" style="--ic:#f59e0b">
+    <div class="industry-card reveal reveal-d2" style="--ic:#f59e0b" data-modal="i-hospitality">
       <div class="industry-icon">&#9673;</div>
       <div class="industry-name">Hospitality</div>
       <div class="industry-examples">HOTELS · RESTAURANTS · EVENTS</div>
+      <span class="industry-hint">VIEW &rarr;</span>
     </div>
-    <div class="industry-card reveal reveal-d3" style="--ic:#14b8a6">
+    <div class="industry-card reveal reveal-d3" style="--ic:#14b8a6" data-modal="i-realestate">
       <div class="industry-icon">&#9650;</div>
       <div class="industry-name">Real Estate</div>
       <div class="industry-examples">PROPTECH · CRM · LISTINGS</div>
+      <span class="industry-hint">VIEW &rarr;</span>
     </div>
-    <div class="industry-card reveal" style="--ic:#ef4444">
+    <div class="industry-card reveal" style="--ic:#ef4444" data-modal="i-security">
       <div class="industry-icon">&#9675;</div>
       <div class="industry-name">Security &amp; Surveillance</div>
       <div class="industry-examples">CCTV · ACCESS · MONITORING</div>
+      <span class="industry-hint">VIEW &rarr;</span>
     </div>
-    <div class="industry-card reveal reveal-d1" style="--ic:#22d3ee">
+    <div class="industry-card reveal reveal-d1" style="--ic:#22d3ee" data-modal="i-supply">
       <div class="industry-icon">&#9678;</div>
       <div class="industry-name">Supply Chain</div>
       <div class="industry-examples">WAREHOUSING · INVENTORY · 3PL</div>
+      <span class="industry-hint">VIEW &rarr;</span>
     </div>
-    <div class="industry-card reveal reveal-d2" style="--ic:#84cc16">
+    <div class="industry-card reveal reveal-d2" style="--ic:#84cc16" data-modal="i-agriculture">
       <div class="industry-icon">&#9681;</div>
       <div class="industry-name">Agriculture</div>
       <div class="industry-examples">AGRITECH · TRACEABILITY</div>
+      <span class="industry-hint">VIEW &rarr;</span>
     </div>
-    <div class="industry-card reveal reveal-d3" style="--ic:#c084fc">
+    <div class="industry-card reveal reveal-d3" style="--ic:#c084fc" data-modal="i-gaming">
       <div class="industry-icon">&#9634;</div>
       <div class="industry-name">Sports &amp; Gaming</div>
       <div class="industry-examples">ESPORTS · COMPETITIONS · APPS</div>
+      <span class="industry-hint">VIEW &rarr;</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section class="process-section" id="process">
+  <div class="process-header reveal">
+    <div class="section-label">How We Work</div>
+    <h2 class="section-title scramble-text">A process refined over ten years.</h2>
+    <p>We've shipped software for every kind of company &mdash; scrappy startups, legacy enterprises, and the wildly in-between. This is how we do it.</p>
+  </div>
+
+  <div class="process-grid">
+    <div class="process-step reveal" style="--pc:#F97316">
+      <div class="process-num">01</div>
+      <h3 class="process-title">Discover</h3>
+      <p class="process-desc">We sit with your team, shadow the workflow, and find the real pain &mdash; not the one in the brief.</p>
+    </div>
+    <div class="process-step reveal reveal-d1" style="--pc:#06b6d4">
+      <div class="process-num">02</div>
+      <h3 class="process-title">Design</h3>
+      <p class="process-desc">We sketch, prototype, and pressure-test every flow before a single line of production code gets written.</p>
+    </div>
+    <div class="process-step reveal reveal-d2" style="--pc:#a855f7">
+      <div class="process-num">03</div>
+      <h3 class="process-title">Build</h3>
+      <p class="process-desc">Weekly ships. No two-month surprises. You see progress in production every Friday, not on demo day.</p>
+    </div>
+    <div class="process-step reveal reveal-d3" style="--pc:#22c55e">
+      <div class="process-num">04</div>
+      <h3 class="process-title">Scale</h3>
+      <p class="process-desc">We don't disappear at launch. We monitor, iterate, and harden the platform as your business grows.</p>
     </div>
   </div>
 </section>
@@ -1587,6 +1863,188 @@
     <a href="#">Terms</a>
   </div>
 </footer>
+
+<!-- ═══════════ MODALS ═══════════ -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modalBox" style="--mc:var(--accent)">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- Modal data (hidden) -->
+<script type="application/json" id="modal-data">
+{
+  "m-custom": {
+    "mc": "#F97316", "icon": "&#9670;", "label": "CUSTOM SOFTWARE",
+    "title": "Software that matches your business.",
+    "tagline": "Not a template. Not a workaround. Built exactly for how your team works.",
+    "desc": "We design and engineer end-to-end web and enterprise platforms from the ground up. Internal tools, customer-facing platforms, data dashboards, workflow engines &mdash; whatever your business runs on, we can build it better.",
+    "offerings": ["Web Applications", "Admin Dashboards", "Internal Tools", "SaaS Platforms", "REST & GraphQL APIs", "Real-time Systems", "Workflow Automation", "Multi-tenant Platforms"],
+    "tech": ["React", "Next.js", "Node.js", "TypeScript", "Python", "Go", "PostgreSQL", "MongoDB", "Redis", "WebSockets"]
+  },
+  "m-ai": {
+    "mc": "#06b6d4", "icon": "&#9672;", "label": "AI & MACHINE LEARNING",
+    "title": "Intelligence, trained on your data.",
+    "tagline": "Computer vision, predictive models, and LLMs that actually ship.",
+    "desc": "We build production ML systems &mdash; not research demos. Face recognition, object detection, forecasting engines, LLM-powered agents, recommendation systems. Deployed, monitored, and continuously improving.",
+    "offerings": ["Computer Vision", "Face Recognition", "Object Detection", "LLM Agents & RAG", "Predictive Analytics", "Recommendation Engines", "NLP & Chatbots", "OCR & Document AI"],
+    "tech": ["PyTorch", "TensorFlow", "OpenCV", "Hugging Face", "OpenAI", "Anthropic", "LangChain", "CUDA", "ONNX"]
+  },
+  "m-mobile": {
+    "mc": "#a855f7", "icon": "&#9634;", "label": "MOBILE APPS",
+    "title": "Apps that feel instant.",
+    "tagline": "iOS and Android that survive poor networks, sync offline, and never lag.",
+    "desc": "From consumer apps to driver apps to enterprise tooling. We build mobile experiences that feel native, sync reliably, and hold up in the real world &mdash; not just on Wi-Fi in the office.",
+    "offerings": ["Native iOS (Swift)", "Native Android (Kotlin)", "React Native", "Flutter", "Offline-first Apps", "Push Notifications", "In-app Payments", "Biometric Auth"],
+    "tech": ["Swift", "Kotlin", "React Native", "Flutter", "Firebase", "Realm", "Expo", "Fastlane"]
+  },
+  "m-cloud": {
+    "mc": "#22c55e", "icon": "&#9650;", "label": "CLOUD & DEVOPS",
+    "title": "Infrastructure that scales quietly.",
+    "tagline": "CI/CD, containers, observability — the plumbing that keeps your platform fast.",
+    "desc": "We design cloud-native architectures, automate deploys, and wire up the monitoring that tells you what's breaking before your users do. AWS, GCP, Azure, or self-hosted &mdash; we work where you are.",
+    "offerings": ["AWS / GCP / Azure", "Kubernetes & Docker", "CI/CD Pipelines", "Infrastructure as Code", "Observability & Logging", "Cost Optimization", "Database Architecture", "Disaster Recovery"],
+    "tech": ["AWS", "GCP", "Kubernetes", "Docker", "Terraform", "GitHub Actions", "Grafana", "Datadog", "CloudFlare"]
+  },
+  "m-erp": {
+    "mc": "#f59e0b", "icon": "&#9681;", "label": "ERP / CRM / HRM",
+    "title": "Business systems, done right.",
+    "tagline": "One platform for inventory, sales, HR, and finance — built on your rules.",
+    "desc": "Off-the-shelf ERPs fight your workflow. We build business systems that match it. Inventory, quotes, invoicing, HR, payroll, CRM pipelines &mdash; integrated, branded, and as opinionated as your business needs them to be.",
+    "offerings": ["Custom ERP", "Inventory Management", "Quotation & Sales", "Invoicing & Billing", "HR & Payroll", "CRM Pipelines", "Vendor Management", "Reporting & Analytics"],
+    "tech": ["Next.js", "Python", "PostgreSQL", "Stripe", "Razorpay", "WhatsApp API", "Tally Integration"]
+  },
+  "m-design": {
+    "mc": "#ec4899", "icon": "&#9675;", "label": "UI / UX DESIGN",
+    "title": "Design that removes friction.",
+    "tagline": "Complex software that feels simple to use.",
+    "desc": "We design product flows, design systems, and interfaces for software that people actually have to use all day. Research-driven, iteration-heavy, and built hand-in-hand with engineering so the final product matches the pixel-perfect spec.",
+    "offerings": ["Product Design", "Design Systems", "User Research", "Wireframes & Prototypes", "Interaction Design", "Brand Identity", "Design-to-Dev Handoff", "Usability Testing"],
+    "tech": ["Figma", "Framer", "Principle", "Adobe CC", "Storybook", "Webflow"]
+  },
+  "m-security": {
+    "mc": "#ef4444", "icon": "&#9733;", "label": "CYBERSECURITY",
+    "title": "Secure by construction.",
+    "tagline": "Assessments, audits, and 24/7 monitoring — hardened from day one.",
+    "desc": "We bake security into software the way it should be &mdash; at the architecture layer, not as an afterthought. Penetration tests, compliance audits, threat modeling, and runtime monitoring for platforms that can't afford to leak.",
+    "offerings": ["Penetration Testing", "Security Audits", "Compliance (ISO, SOC 2)", "Threat Modeling", "Secure Code Review", "24/7 Monitoring", "Incident Response", "SSO & IAM"],
+    "tech": ["OWASP", "Burp Suite", "Wireshark", "Vault", "Auth0", "Okta", "CrowdStrike"]
+  },
+  "m-transform": {
+    "mc": "#3b82f6", "icon": "&#9729;", "label": "DIGITAL TRANSFORMATION",
+    "title": "Legacy, modernized without breaking things.",
+    "tagline": "Migrate, refactor, and re-architect — with zero downtime.",
+    "desc": "We unwind legacy monoliths, migrate off aging platforms, and re-architect for the next decade. The catch: we do it in production, incrementally, without stopping your business. No big-bang rewrites.",
+    "offerings": ["Monolith to Microservices", "Cloud Migration", "Database Migration", "API Modernization", "Legacy Refactoring", "Tech Debt Audits", "Platform Strategy", "Team Enablement"],
+    "tech": ["Strangler Fig Pattern", "Event Sourcing", "Kafka", "CDC", "Docker", "Kubernetes"]
+  },
+  "m-iot": {
+    "mc": "#14b8a6", "icon": "&#9678;", "label": "IoT & INTEGRATIONS",
+    "title": "Everything, connected.",
+    "tagline": "GPS, cameras, sensors, and APIs stitched into one source of truth.",
+    "desc": "We wire up the messy real world. GPS devices, IP cameras, ERPs, WhatsApp, Tally, Salesforce, bank APIs, payment gateways &mdash; we build the integration layer that turns fragmented data into one unified platform.",
+    "offerings": ["GPS Device Integration", "IP Camera Integration", "Payment Gateways", "WhatsApp Business API", "ERP/CRM Sync", "Webhook Infrastructure", "Real-time Data Pipelines", "Hardware Firmware"],
+    "tech": ["MQTT", "WebSockets", "Modbus", "RS-485", "Kafka", "Twilio", "Razorpay", "Stripe"]
+  },
+  "i-logistics": {
+    "mc": "#F97316", "icon": "&#9679;", "label": "LOGISTICS & FLEET",
+    "title": "Software for companies that move things.",
+    "tagline": "Trucks, drivers, cargo, compliance — all in one place.",
+    "desc": "We've built fleet intelligence platforms used across trucking, last-mile, and enterprise logistics. Real-time GPS, trip management, fuel audits, compliance, invoicing &mdash; the whole operations stack.",
+    "offerings": ["Live GPS Tracking", "Trip & TAT Management", "Delay Prediction", "Fuel Audits", "Compliance & Documents", "Driver Apps", "E-POD & E-Way Bill", "Fleet Analytics"],
+    "tech": ["Traxium", "Node.js", "React Native", "PostgreSQL", "Kafka", "Google Maps", "Wheelseye API"]
+  },
+  "i-manufacturing": {
+    "mc": "#06b6d4", "icon": "&#9670;", "label": "MANUFACTURING",
+    "title": "From plant floor to P&L.",
+    "tagline": "Production, inventory, quality, and dispatch — visible in real time.",
+    "desc": "Factories run on spreadsheets, WhatsApp groups, and tribal knowledge. We replace that with software that tracks production, manages inventory, and gives management real-time visibility across every shift.",
+    "offerings": ["Production Planning", "Inventory & Raw Material", "Quality Control", "Dispatch & Logistics", "Machine Monitoring", "Shift Management", "Plywood-specific ERP", "Downtime Analytics"],
+    "tech": ["Custom ERP", "Python", "PostgreSQL", "IoT Sensors", "Tally Integration"]
+  },
+  "i-retail": {
+    "mc": "#a855f7", "icon": "&#9672;", "label": "RETAIL & E-COMMERCE",
+    "title": "From showroom to checkout.",
+    "tagline": "Unified commerce for single stores, chains, and D2C brands.",
+    "desc": "We build retail stacks that tie together POS, inventory, e-commerce, and customer data. Whether it's a jewelry showroom, a fashion D2C, or a multi-city retail chain, we integrate the chaos into one clean system.",
+    "offerings": ["E-commerce Platforms", "POS Systems", "Inventory Sync", "Customer Loyalty", "Omnichannel Orders", "Payment Integration", "Showroom Apps", "WhatsApp Commerce"],
+    "tech": ["Shopify", "Next.js", "React Native", "Stripe", "Razorpay", "WhatsApp API"]
+  },
+  "i-healthcare": {
+    "mc": "#22c55e", "icon": "&#9674;", "label": "HEALTHCARE",
+    "title": "Software that understands care.",
+    "tagline": "Clinics, diagnostics, pharma — digitized with compliance in mind.",
+    "desc": "Healthcare software lives or dies on reliability and compliance. We build EMRs, patient portals, diagnostic dashboards, and pharma traceability platforms that clinicians actually want to use.",
+    "offerings": ["EMR / EHR Systems", "Patient Portals", "Appointment Platforms", "Diagnostic Dashboards", "Pharmacy Management", "Telemedicine", "HIPAA Compliance", "Medical Imaging"],
+    "tech": ["Next.js", "Python", "HL7/FHIR", "HIPAA", "DICOM"]
+  },
+  "i-finance": {
+    "mc": "#3b82f6", "icon": "&#9671;", "label": "FINANCIAL SERVICES",
+    "title": "Fintech-grade reliability.",
+    "tagline": "Lending, payments, and analytics built to audit-trail everything.",
+    "desc": "Financial software has zero room for bugs. We build lending platforms, payment flows, reconciliation engines, and risk dashboards with the audit trails, double-entry accounting, and fraud controls regulators expect.",
+    "offerings": ["Lending Platforms", "Payment Processing", "Reconciliation Engines", "KYC / AML", "Risk Dashboards", "Accounting Systems", "Investor Portals", "RBI / SEBI Compliance"],
+    "tech": ["Java", "Go", "PostgreSQL", "Kafka", "Redis", "Razorpay", "Stripe"]
+  },
+  "i-education": {
+    "mc": "#ec4899", "icon": "&#9733;", "label": "EDUCATION",
+    "title": "Software that scales learning.",
+    "tagline": "LMS, assessment engines, and gamified learning — for any scale.",
+    "desc": "From K-12 to enterprise training, we build education platforms that handle thousands of concurrent students, live classes, automated grading, and content pipelines without breaking a sweat.",
+    "offerings": ["Learning Management", "Live Classes", "Automated Assessments", "Content Pipelines", "Student Analytics", "Gamification", "Parent Portals", "Institutional Admin"],
+    "tech": ["Next.js", "WebRTC", "React Native", "PostgreSQL", "Redis", "FFmpeg"]
+  },
+  "i-hospitality": {
+    "mc": "#f59e0b", "icon": "&#9673;", "label": "HOSPITALITY",
+    "title": "From booking to goodbye.",
+    "tagline": "Hotels, restaurants, and events — run from one elegant dashboard.",
+    "desc": "We build PMS, POS, booking engines, and guest experience apps for hotels, restaurants, and event operators. Every touchpoint &mdash; reservations, check-in, ordering, billing, reviews &mdash; in one place.",
+    "offerings": ["Property Management (PMS)", "Restaurant POS", "Booking Engines", "Guest Apps", "Table Reservations", "Event Management", "Kitchen Display Systems", "Loyalty Programs"],
+    "tech": ["Next.js", "React Native", "PostgreSQL", "Stripe", "Razorpay"]
+  },
+  "i-realestate": {
+    "mc": "#14b8a6", "icon": "&#9650;", "label": "REAL ESTATE",
+    "title": "Proptech that closes deals.",
+    "tagline": "Listings, CRM, and transactions — the full broker stack.",
+    "desc": "We build platforms for developers, brokers, and property managers. Listings portals, broker CRMs, transaction management, tenant portals, and project tracking &mdash; modern, mobile-first, data-rich.",
+    "offerings": ["Listings Platforms", "Broker CRM", "Virtual Tours", "Transaction Management", "Tenant Portals", "Project Tracking", "Lead Scoring", "Inventory Management"],
+    "tech": ["Next.js", "React Native", "Mapbox", "PostgreSQL"]
+  },
+  "i-security": {
+    "mc": "#ef4444", "icon": "&#9675;", "label": "SECURITY & SURVEILLANCE",
+    "title": "Cameras that think.",
+    "tagline": "Turn existing CCTV into intelligent monitoring.",
+    "desc": "We built Praxate for exactly this. Your existing CCTV becomes a workforce intelligence system &mdash; face recognition, attendance, zone tracking, security alerts &mdash; all processed locally with no cloud dependency.",
+    "offerings": ["Face Recognition", "Attendance via CCTV", "Zone Monitoring", "Intruder Detection", "Restricted Area Alerts", "Occupancy Analytics", "Workforce Reports", "On-premise Processing"],
+    "tech": ["Praxate", "Python", "OpenCV", "PyTorch", "CUDA", "RTSP"]
+  },
+  "i-supply": {
+    "mc": "#22d3ee", "icon": "&#9678;", "label": "SUPPLY CHAIN",
+    "title": "Visibility end-to-end.",
+    "tagline": "Warehousing, inventory, 3PL — one source of truth.",
+    "desc": "Supply chain breaks when data is fragmented. We build WMS, inventory platforms, and 3PL portals that tie together every warehouse, vendor, and truck into a single real-time view.",
+    "offerings": ["Warehouse Management (WMS)", "Inventory Platforms", "3PL Portals", "Vendor Management", "Demand Forecasting", "Order Fulfillment", "Barcode / RFID", "Returns Management"],
+    "tech": ["Node.js", "PostgreSQL", "Kafka", "Python", "Android PDA Apps"]
+  },
+  "i-agriculture": {
+    "mc": "#84cc16", "icon": "&#9681;", "label": "AGRICULTURE",
+    "title": "Software for the field.",
+    "tagline": "Agritech, traceability, and farm management — built for real conditions.",
+    "desc": "We build agritech platforms that handle offline data capture, satellite imagery, supply chain traceability, and farmer-facing apps that work on the cheapest Android phones with the worst network.",
+    "offerings": ["Farm Management", "Crop Traceability", "Satellite Analytics", "Farmer Apps", "Mandi Price Feeds", "Weather Intelligence", "FPO Platforms", "Input Procurement"],
+    "tech": ["React Native", "Offline-first", "Python", "Satellite APIs", "PostgreSQL"]
+  },
+  "i-gaming": {
+    "mc": "#c084fc", "icon": "&#9634;", "label": "SPORTS & GAMING",
+    "title": "Platforms for play.",
+    "tagline": "Esports, competitions, and gaming apps — low-latency, high-scale.",
+    "desc": "We build for the high-intensity end &mdash; real-time leaderboards, matchmaking, live-scoring, fantasy platforms, and competition engines that handle spiky concurrency without dropping users.",
+    "offerings": ["Fantasy Platforms", "Esports Tournaments", "Live Scoring", "Matchmaking", "Leaderboards", "Competition Engines", "Prize Distribution", "Anti-Cheat"],
+    "tech": ["Node.js", "Go", "WebSockets", "Redis", "PostgreSQL", "React Native"]
+  }
+}
+</script>
 
 <script>
   // ═══════════ DEVICE DETECTION ═══════════
@@ -1943,6 +2401,69 @@
       card.style.setProperty('--mx', x + '%');
       card.style.setProperty('--my', y + '%');
     });
+  });
+
+  // ═══════════ MODAL SYSTEM ═══════════
+  const modalData = JSON.parse(document.getElementById('modal-data').textContent);
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalBox = document.getElementById('modalBox');
+  const modalContent = document.getElementById('modalContent');
+  const modalClose = document.getElementById('modalClose');
+
+  function openModal(key) {
+    const d = modalData[key];
+    if (!d) return;
+    modalBox.style.setProperty('--mc', d.mc);
+    modalContent.innerHTML = `
+      <div class="modal-icon">${d.icon}</div>
+      <div class="modal-label">${d.label}</div>
+      <h2 class="modal-title">${d.title}</h2>
+      <p class="modal-tagline">${d.tagline}</p>
+      <p class="modal-desc">${d.desc}</p>
+      <div class="modal-section">
+        <div class="modal-section-title">What We Build</div>
+        <ul class="modal-list">
+          ${d.offerings.map(o => `<li>${o}</li>`).join('')}
+        </ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Technologies</div>
+        <div class="modal-tags">
+          ${d.tech.map(t => `<span class="modal-tag">${t}</span>`).join('')}
+        </div>
+      </div>
+      <div class="modal-cta-row">
+        <a href="#contact" class="modal-btn modal-btn-primary" data-modal-cta>Start a Project &rarr;</a>
+        <button class="modal-btn modal-btn-ghost" data-modal-cta>Close</button>
+      </div>
+    `;
+    modalBackdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modalBackdrop.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-modal]').forEach(card => {
+    card.addEventListener('click', e => {
+      const key = card.getAttribute('data-modal');
+      openModal(key);
+    });
+  });
+
+  modalClose.addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', e => {
+    if (e.target === modalBackdrop) closeModal();
+  });
+  document.addEventListener('click', e => {
+    if (e.target.matches('[data-modal-cta]')) {
+      closeModal();
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modalBackdrop.classList.contains('active')) closeModal();
   });
 
   // ═══════════ MAGNETIC BUTTONS (desktop only) ═══════════
