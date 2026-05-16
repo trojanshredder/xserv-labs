@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Building Traxium: How We Architected a Multi-Tenant Fleet Platform on AWS — XServ Labs</title>
+<meta name="description" content="An engineering deep-dive into Traxium — XServ Labs' AI fleet management platform. Architecture decisions, AWS services used, the GPS ingestion pipeline, AI delay prediction, and what we'd do differently.">
+<meta name="keywords" content="fleet management platform architecture, multi-tenant SaaS architecture, AWS fleet management, traxium engineering, GPS data pipeline, real-time fleet platform, india saas architecture">
+<meta name="author" content="XServ Labs">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="canonical" href="https://xservlabs.com/blog/building-traxium-fleet-platform-aws/">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="XServ Labs">
+<meta property="og:title" content="Building Traxium: How We Architected a Multi-Tenant Fleet Platform on AWS">
+<meta property="og:description" content="An engineering deep-dive into Traxium — XServ Labs' AI fleet management platform. Architecture decisions, AWS services used, the GPS ingestion pipeline, AI delay prediction, and what we'd do differently.">
+<meta property="og:url" content="https://xservlabs.com/blog/building-traxium-fleet-platform-aws/">
+<meta property="og:image" content="https://xservlabs.com/og-image.png">
+<meta property="og:locale" content="en_IN">
+<meta property="article:published_time" content="2026-05-16T10:00:00+05:30">
+<meta property="article:modified_time" content="2026-05-16T10:00:00+05:30">
+<meta property="article:author" content="XServ Labs">
+<meta property="article:section" content="Engineering">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Building Traxium: How We Architected a Multi-Tenant Fleet Platform on AWS">
+<meta name="twitter:description" content="An engineering deep-dive into Traxium — XServ Labs' AI fleet management platform. Architecture decisions, AWS services used, the GPS ingestion pipeline, AI delay prediction, and what we'd do differently.">
+<meta name="twitter:image" content="https://xservlabs.com/og-image.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/page.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://xservlabs.com/blog/building-traxium-fleet-platform-aws/#article",
+      "headline": "Building Traxium: How We Architected a Multi-Tenant Fleet Platform on AWS",
+      "description": "An engineering deep-dive into Traxium — XServ Labs' AI fleet management platform. Architecture decisions, AWS services used, the GPS ingestion pipeline, AI delay prediction, and what we'd do differently.",
+      "image": "https://xservlabs.com/og-image.png",
+      "datePublished": "2026-05-16T10:00:00+05:30",
+      "dateModified": "2026-05-16T10:00:00+05:30",
+      "author": {
+        "@type": "Organization",
+        "name": "XServ Labs",
+        "url": "https://xservlabs.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "XServ Labs",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://xservlabs.com/logo.png"
+        }
+      },
+      "mainEntityOfPage": "https://xservlabs.com/blog/building-traxium-fleet-platform-aws/",
+      "articleSection": "Engineering",
+      "keywords": [
+        "fleet platform architecture",
+        "multi-tenant SaaS",
+        "AWS architecture",
+        "real-time platform design",
+        "Traxium engineering"
+      ],
+      "wordCount": 2400
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://xservlabs.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://xservlabs.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Building Traxium on AWS",
+          "item": "https://xservlabs.com/blog/building-traxium-fleet-platform-aws/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What cloud do you run Traxium on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AWS — specifically a mix of ECS Fargate (compute), Application/Network Load Balancers (traffic), RDS PostgreSQL with TimescaleDB (operational and hot time-series data), S3 + Athena (cold storage and analytics), Kinesis (stream ingestion), and ElastiCache Redis (pub/sub and caching)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you handle multi-tenant data isolation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Shared-schema with tenant_id discipline + PostgreSQL row-level security as a backstop. Every query goes through an ORM layer that auto-injects the tenant filter. RLS policies enforce it at the database level. This is the right model for SME-focused SaaS economics; schema-per-tenant or DB-per-tenant make more sense at enterprise pricing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What ML framework do you use for delay prediction?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "scikit-learn gradient-boosted regression. Hand-crafted features (current speed vs route average, weather, time-of-day, historical truck behaviour, traffic forecasts). Trained nightly on rolling 30 days of data. Simple, interpretable, accurate enough that customers cite delay prediction as a primary reason for adoption."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why TCP/UDP for GPS instead of HTTP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GPS devices use proprietary binary protocols (Teltonika, Concox, Meitrack, etc.) — not HTTP. Forcing them through HTTP requires a translation layer that adds latency and breaks every time a manufacturer updates firmware. Direct TCP/UDP ingestion per protocol is cleaner, faster, and easier to maintain."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header" role="banner">
+  <nav class="nav" aria-label="Primary">
+    <a href="/" class="logo" aria-label="XServ Labs — home"><span class="logo-mark">X</span><span>XServ Labs</span></a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#products">Products</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li class="nav-cta-li"><a href="/#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="/">Home</a><span class="sep">/</span><a href="/blog/">Blog</a><span class="sep">/</span><span class="cur">Building Traxium on AWS</span>
+</nav>
+
+<article class="article-wrap">
+  <header class="article-header">
+    <div class="article-meta-top">
+      <span class="tag">Engineering</span>
+      <span>16 May 2026</span>
+      <span>&middot;</span>
+      <span>13 min read</span>
+    </div>
+    <h1>Building Traxium: how we architected a multi-tenant fleet platform <em>on AWS</em>.</h1>
+    <p class="lede">The engineering story of Traxium — what we got right, what we'd do differently, and the architectural decisions behind a fleet management platform that handles real-time GPS, AI delay prediction, and GST invoicing for Indian trucking SMEs.</p>
+    <div class="article-byline">
+      <div class="avatar">X</div>
+      <div>
+        <strong>XServ Labs Engineering</strong>
+        <span class="sep">·</span>
+        Hyderabad, India
+      </div>
+    </div>
+  </header>
+
+  <div class="article-body">
+
+<p>Traxium is our AI fleet management platform for Indian trucking SMEs. It handles live GPS at sub-30-second refresh, AI-based delay prediction, fuel anomaly detection, GST-compliant invoicing, and WhatsApp alerts — across hundreds of fleets and thousands of vehicles. This post is the engineering story behind it: the architecture decisions, the trade-offs, what we got right, and what we'd do differently if we started over.</p>
+
+    <p>If you're building a real-time multi-tenant SaaS platform — fleet, IoT, marketplace, logistics — there's something here worth borrowing.</p>
+
+    <h2>The problem shape</h2>
+
+    <p>Fleet management for Indian trucking has a specific set of constraints that drove most of our architecture decisions:</p>
+
+    <ul>
+      <li>High-volume telemetry ingestion — every GPS device sends a packet every 10–30 seconds. A fleet of 1,000 trucks generates ~3 million events per day. We needed to scale that across many fleets cheaply.</li>
+      <li>Multi-tenant isolation — each fleet's data must be cleanly separated, with no chance of cross-tenant leakage.</li>
+      <li>Real-time dashboards — operators expect to see truck positions update live, not on 60-second polling.</li>
+      <li>India compliance — GST invoicing, e-way bill integration, IRN generation. Native, not bolted on.</li>
+      <li>WhatsApp as a first-class channel — drivers and customers don't open new apps.</li>
+      <li>Spotty connectivity — devices go offline on long-haul routes. Data must buffer and sync on reconnect, in order.</li>
+      <li>India-market cost sensitivity — we couldn't justify ₹2L/month cloud spend per customer.</li>
+    </ul>
+
+    <p>Those constraints ruled out a lot of naive architectures. Here's what we landed on.</p>
+
+    <h2>The 30,000-foot view</h2>
+
+    <p>Traxium's architecture in one paragraph: GPS devices send raw packets to a TCP/UDP ingestion layer running on ECS. Packets are parsed, validated, and pushed to Kinesis. Stream processors fan packets out to (a) a hot-storage time-series database for live tracking, (b) a data lake for analytics and ML, (c) the event bus for triggering alerts and workflows. The application backend runs as Node.js services in containers behind an Application Load Balancer. The frontend is a React SPA. ML models for delay prediction and fuel anomaly run as scheduled batch jobs against the data lake. WhatsApp integration goes through the Meta Cloud API.</p>
+
+    <p>The detail is where the interesting trade-offs are.</p>
+
+    <h2>1. GPS ingestion: don't try to use HTTP</h2>
+
+    <p>The most important early decision: GPS devices use proprietary TCP/UDP protocols, not HTTP. Each device manufacturer has its own packet format (Teltonika, Concox, Meitrack, Aquila, JT701, all different). Trying to put devices behind an HTTP layer adds latency, complexity, and a translation layer that breaks every time a manufacturer ships firmware updates.</p>
+
+    <p>What we built: a thin ingestion service per protocol, running as a containerised TCP listener on ECS Fargate, behind a Network Load Balancer. Devices connect directly. The service parses, validates, and forwards to Kinesis. Each protocol's service is independent — if Teltonika ships a new firmware, only the Teltonika service needs updating.</p>
+
+    <p>Why this matters: protocol-specific services scale independently. The Teltonika service handles 60% of our load; the long-tail protocols share a single low-capacity service. We don't pay for capacity we don't need on niche protocols.</p>
+
+    <h2>2. Hot vs cold storage</h2>
+
+    <p>The next critical decision: where does telemetry data live?</p>
+
+    <p>Initially we tried PostgreSQL with TimescaleDB for everything. It worked at small scale, then hit a wall around 50 fleets. Writes were fine; reads for live dashboards became expensive. The geometry indexes for spatial queries struggled.</p>
+
+    <p>We split storage by access pattern:</p>
+
+    <ul>
+      <li><strong>Hot storage (last 7 days):</strong> moved to TimescaleDB on a tuned RDS instance. Specifically designed for time-series queries. Used for live tracking and recent reports.</li>
+      <li><strong>Cold storage (>7 days):</strong> Parquet files on S3 in date-partitioned folders, queried via Athena. Cheap, fast for analytics, terrible for transactional reads — which is fine because nothing transactional reads cold data.</li>
+      <li><strong>Operational data (trips, invoices, customers, users):</strong> regular PostgreSQL on RDS. Standard relational model.</li>
+    </ul>
+
+    <p>This split cut our storage costs by ~70% while improving query performance for the live dashboards.</p>
+
+    <h2>3. Multi-tenant isolation — pick a model and commit</h2>
+
+    <p>SaaS multi-tenancy options, ranked by trade-off:</p>
+
+    <ul>
+      <li><strong>Database per tenant:</strong> strongest isolation, hardest to operate, very expensive at scale</li>
+      <li><strong>Schema per tenant:</strong> good isolation, manageable, breaks at high tenant count</li>
+      <li><strong>Shared schema with tenant_id column:</strong> cheapest, hardest to keep isolation watertight</li>
+    </ul>
+
+    <p>We went with <strong>shared schema + strict tenant_id discipline + row-level security in PostgreSQL</strong>. Every query goes through an ORM layer that automatically injects the tenant filter. RLS policies on the database side enforce it as a backstop. Cross-tenant queries simply can't happen without explicit super-admin context.</p>
+
+    <p>This was the right call for our scale and ops capacity. If we were targeting enterprise customers demanding dedicated infrastructure, schema-per-tenant would have made more sense. For SME-focused SaaS, shared-schema is the only economically viable model.</p>
+
+    <h2>4. Real-time dashboards: WebSockets, not polling</h2>
+
+    <p>The mistake everyone makes early: polling. The dashboard polls the API every 5 seconds for truck positions. The API hammers the database. Costs explode. UX feels laggy anyway.</p>
+
+    <p>We use WebSockets via Socket.io behind ALB. The stream processor publishes events to a pub/sub layer (Redis). The WebSocket service subscribes per-tenant and pushes updates to connected dashboards. Truck moves → 200ms → it's visible on the dashboard.</p>
+
+    <p>Cost-wise: WebSocket connections are cheap. The bandwidth for real-time updates is much less than the bandwidth wasted on polling that returns the same data.</p>
+
+    <h2>5. AI delay prediction — start simple</h2>
+
+    <p>Our biggest temptation early was to build a fancy deep-learning model for delay prediction. We resisted, and we're glad we did.</p>
+
+    <p>The v1 model: gradient-boosted regression on a hand-crafted feature set — current speed vs route average, weather at destination, hour-of-day patterns, historical truck behaviour, traffic forecasts. Built in scikit-learn. Trained nightly on the previous 30 days of data. Predicted ETA delays in 15-minute buckets.</p>
+
+    <p>That model is now responsible for the bulk of our "AI" value. It's interpretable, fast to train, cheap to run, and produces results good enough that customers cite the delay-prediction feature as their reason for staying.</p>
+
+    <p>Lesson: simple models with good features beat complex models with bad features. Especially when you're shipping a SaaS where users want results, not novelty.</p>
+
+    <h2>6. GST and IRN — the special-case backend</h2>
+
+    <p>GST integration is its own small empire. IRN generation requires hitting the IRP (Invoice Registration Portal) within strict timeframes. Failed IRNs need replay logic. Different state-of-supply rules apply per consignor/consignee. Cancellation has its own protocol.</p>
+
+    <p>We isolated this into a dedicated invoicing service with its own queue, retry logic, and reconciliation processes. It exposes a simple internal API ("issue invoice for trip X") and handles everything underneath. Critically, it has its own dashboard for ops to monitor failed IRNs and manually retry.</p>
+
+    <p>Isolating this away from the main app code paid off the first week we tried it. GST is fiddly enough that you don't want it bleeding into your main business logic.</p>
+
+    <h2>7. WhatsApp as a first-class channel</h2>
+
+    <p>The Indian context: drivers, customers, and dispatchers live on WhatsApp. Pushing them to install separate apps is friction we couldn't justify.</p>
+
+    <p>We integrated the Meta WhatsApp Cloud API directly. Templated message flows for status updates, ETAs, document requests, customer notifications. Inbound message handling for driver POD uploads (photo + GPS = automatic delivery confirmation). Opt-out controls to respect WhatsApp Business policy.</p>
+
+    <p>The architectural decision: WhatsApp is treated as a peer to in-app notifications, not a secondary channel. Notification templates are channel-agnostic; the dispatch layer picks the right channel per user preference.</p>
+
+    <h2>8. What we'd do differently</h2>
+
+    <p>Several things, in retrospect:</p>
+
+    <ul>
+      <li><strong>Start with event sourcing for trip events from day one.</strong> We added it later for audit and analytics. Earlier would have saved a painful migration.</li>
+      <li><strong>Containerise everything from week one.</strong> We had some long-lived EC2 instances early that became technical debt. ECS Fargate everywhere would have been cleaner.</li>
+      <li><strong>Build the protocol-translation layer more generically.</strong> Adding a new GPS device type still requires a small dev effort. A more declarative DSL would have made this near-config-only.</li>
+      <li><strong>Take observability seriously from the start.</strong> We didn't have proper distributed tracing for the first year. Debugging issues across services was painful. OpenTelemetry from day one would have helped.</li>
+    </ul>
+
+    <h2>The general lessons</h2>
+
+    <p>If we were starting any real-time multi-tenant SaaS today, the lessons we'd carry over:</p>
+
+    <ol>
+      <li>Protocol-specific ingestion services beat universal HTTP wrappers</li>
+      <li>Split storage by access pattern — hot, cold, operational — early</li>
+      <li>Shared-schema multi-tenancy with RLS is the right default for SME-scale SaaS</li>
+      <li>WebSockets for live dashboards. Always.</li>
+      <li>Start with simple, interpretable ML models. Add complexity only when results plateau.</li>
+      <li>Isolate compliance-heavy modules (GST, billing, regulated workflows) from main business logic</li>
+      <li>Treat WhatsApp / SMS as first-class channels in India, not afterthoughts</li>
+      <li>Containerise everything. ECS Fargate or Kubernetes from day one.</li>
+      <li>Observability — tracing, metrics, logs — from day one, not month 12</li>
+    </ol>
+
+    <p>The full Traxium story has more to it — the AI fuel anomaly detection, the offline-first mobile apps, the WhatsApp-first POD workflow — but those are posts for another day.</p>
+
+    <p>If you want to see what Traxium actually does as a product, see our <a href="/products/traxium/">Traxium guide</a>. If you're building something similar and want to compare notes, talk to us — engineering conversations are the best part of our day.</p>
+
+  </div>
+
+  <footer class="article-footer">
+    <div class="article-cta-card">
+      <h3>Building something similar? <em>We've made the mistakes for you.</em></h3>
+      <p>If you're architecting a real-time multi-tenant platform — fleet, IoT, logistics, marketplace — talk to us. The cost of the wrong architecture call is 6 months and a rewrite.</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="https://wa.me/918897599624?text=Hi%20XServ%2C%20I%27d%20like%20to%20discuss%20a%20project." class="btn btn-primary" target="_blank" rel="noopener">WhatsApp us</a>
+        <a href="tel:+918897599624" class="btn btn-ghost">Call +91 88975 99624</a>
+      </div>
+    </div>
+
+    <h3 style="font-size:13px; letter-spacing:1.6px; text-transform:uppercase; color:var(--text-muted); margin-bottom:18px;">Read next</h3>
+    <div class="related" style="padding:0; border:0;">
+      <div class="grid">
+        <a href="/products/traxium/"><div class="ttl">Traxium product guide</div><div class="desc">What Traxium does as a product — features, pricing, who it's for.</div></a>
+        <a href="/services/cloud-devops/"><div class="ttl">Cloud & DevOps</div><div class="desc">Architecture, AWS, Kubernetes, observability — how we run platforms in production.</div></a>
+        <a href="/services/custom-software-development/"><div class="ttl">Custom Software Development</div><div class="desc">If you're building something similar, here's how we engage.</div></a>
+      </div>
+    </div>
+  </footer>
+</article>
+
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div>&copy; 2026 XServ Labs · Hyderabad, India</div>
+  <nav class="foot-links" aria-label="Footer">
+    <a href="/">Home</a><a href="/#services">Services</a><a href="/#products">Products</a><a href="/blog/">Blog</a>
+    <a href="https://wa.me/918897599624" target="_blank" rel="noopener">WhatsApp</a><a href="tel:+918897599624">Call</a>
+  </nav>
+</footer>
+
+<a href="https://wa.me/918897599624?text=Hi%20XServ%2C%20I%27d%20like%20to%20discuss%20a%20project." class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.205-.24-.585-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.195 2.105 3.195 5.1 4.485.714.3 1.27.48 1.704.629.714.227 1.365.195 1.88.121.574-.091 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345m-5.446 7.443h-.016c-1.77 0-3.524-.48-5.055-1.38l-.36-.214-3.75.975 1.005-3.645-.239-.375a9.869 9.869 0 0 1-1.516-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 0 0 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411"/></svg>
+</a>
+
+</body>
+</html>

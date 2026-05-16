@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+# Crawlers we want to be explicit about
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Sitemap
+Sitemap: https://xservlabs.com/sitemap.xml

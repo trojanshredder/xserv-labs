@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Penetration Testing Checklist for Indian SaaS Companies (2026) — XServ Labs</title>
+<meta name="description" content="A practical 2026 penetration testing checklist for Indian SaaS companies — what to scope, what to test, what to demand in the report, and how to act on findings. Built for founders and engineering leaders, not auditors.">
+<meta name="keywords" content="penetration testing checklist india saas, pentest india, security audit saas, vulnerability assessment india, pentest scoping, owasp top 10 india, saas security audit">
+<meta name="author" content="XServ Labs">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="canonical" href="https://xservlabs.com/blog/penetration-testing-checklist-india-saas/">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="XServ Labs">
+<meta property="og:title" content="Penetration Testing Checklist for Indian SaaS Companies (2026)">
+<meta property="og:description" content="A practical 2026 penetration testing checklist for Indian SaaS companies — what to scope, what to test, what to demand in the report, and how to act on findings. Built for founders and engineering leaders, not auditors.">
+<meta property="og:url" content="https://xservlabs.com/blog/penetration-testing-checklist-india-saas/">
+<meta property="og:image" content="https://xservlabs.com/og-image.png">
+<meta property="og:locale" content="en_IN">
+<meta property="article:published_time" content="2026-05-16T10:00:00+05:30">
+<meta property="article:modified_time" content="2026-05-16T10:00:00+05:30">
+<meta property="article:author" content="XServ Labs">
+<meta property="article:section" content="Cybersecurity">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Penetration Testing Checklist for Indian SaaS Companies (2026)">
+<meta name="twitter:description" content="A practical 2026 penetration testing checklist for Indian SaaS companies — what to scope, what to test, what to demand in the report, and how to act on findings. Built for founders and engineering leaders, not auditors.">
+<meta name="twitter:image" content="https://xservlabs.com/og-image.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/page.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://xservlabs.com/blog/penetration-testing-checklist-india-saas/#article",
+      "headline": "Penetration Testing Checklist for Indian SaaS Companies (2026)",
+      "description": "A practical 2026 penetration testing checklist for Indian SaaS companies — what to scope, what to test, what to demand in the report, and how to act on findings. Built for founders and engineering leaders, not auditors.",
+      "image": "https://xservlabs.com/og-image.png",
+      "datePublished": "2026-05-16T10:00:00+05:30",
+      "dateModified": "2026-05-16T10:00:00+05:30",
+      "author": {
+        "@type": "Organization",
+        "name": "XServ Labs",
+        "url": "https://xservlabs.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "XServ Labs",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://xservlabs.com/logo.png"
+        }
+      },
+      "mainEntityOfPage": "https://xservlabs.com/blog/penetration-testing-checklist-india-saas/",
+      "articleSection": "Cybersecurity",
+      "keywords": [
+        "penetration testing",
+        "SaaS security",
+        "OWASP top 10",
+        "vulnerability assessment",
+        "pentest India"
+      ],
+      "wordCount": 2100
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://xservlabs.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://xservlabs.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Penetration Testing Checklist for SaaS",
+          "item": "https://xservlabs.com/blog/penetration-testing-checklist-india-saas/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does a SaaS pentest take in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Typical durations: single web app 1–2 weeks; web + API 2–3 weeks; full stack including mobile and cloud 4–6 weeks. Pricing scales accordingly — ₹1.5L for the simplest scope, ₹6L–₹12L for full-stack engagements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Black-box, grey-box, or white-box — which is right for SaaS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Grey-box is the sweet spot for most B2B SaaS — the tester has credentials for typical user roles and tests authenticated flows + privilege escalation. Add white-box (with source access) for critical modules like authentication and billing. Pure black-box misses too many business-logic issues to be cost-effective."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should we get pentested?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimum annually for production SaaS. After every major release. Before SOC 2 or ISO 27001 audits. Continuous (monthly) for SaaS handling payment data, PHI, or financial data — or shipping weekly. The right cadence depends on attack surface and risk tolerance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a vulnerability scan the same as a pentest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. A scan is automated and finds known patterns. A pentest is a human assessing business logic, multi-tenant isolation, privilege escalation, and chained exploits that scanners miss. Both are useful — scans for continuous monitoring, pentests for deep assessments."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do pentest reports satisfy SOC 2 / ISO 27001 requirements?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, when done by a qualified firm with documented methodology, findings, remediation plans, and re-test verification. Auditors want to see active vulnerability management — not just one report sitting in a folder."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header" role="banner">
+  <nav class="nav" aria-label="Primary">
+    <a href="/" class="logo" aria-label="XServ Labs — home"><span class="logo-mark">X</span><span>XServ Labs</span></a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#products">Products</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li class="nav-cta-li"><a href="/#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="/">Home</a><span class="sep">/</span><a href="/blog/">Blog</a><span class="sep">/</span><span class="cur">Penetration Testing Checklist for SaaS</span>
+</nav>
+
+<article class="article-wrap">
+  <header class="article-header">
+    <div class="article-meta-top">
+      <span class="tag">Cybersecurity</span>
+      <span>16 May 2026</span>
+      <span>&middot;</span>
+      <span>10 min read</span>
+    </div>
+    <h1>Penetration testing checklist for Indian SaaS companies <em>(2026)</em>.</h1>
+    <p class="lede">What to test, how to scope, what to demand from your vendor, and how to read the report. A practical guide written for founders and engineering leaders — not security marketing.</p>
+    <div class="article-byline">
+      <div class="avatar">X</div>
+      <div>
+        <strong>XServ Labs Engineering</strong>
+        <span class="sep">·</span>
+        Hyderabad, India
+      </div>
+    </div>
+  </header>
+
+  <div class="article-body">
+
+<p>Most Indian SaaS founders treat penetration testing as a compliance check-box — something to do once before the enterprise sales cycle demands an attestation. That's a missed opportunity. A good pentest finds real exploitable issues that would have cost you the customer, the data, and the reputation. A bad pentest finds 47 informational-severity items, none of them exploitable, and gives you a 200-page PDF nobody acts on.</p>
+
+    <p>Here's a checklist for getting the good kind. Use it to scope your next engagement, evaluate vendors, and know what to demand.</p>
+
+    <h2>Before scoping: get the basics right</h2>
+
+    <p>Pre-pentest hygiene that vendors will quietly thank you for and that materially improves what they find:</p>
+
+    <ul>
+      <li>Patch your dependencies. Run <code>npm audit</code> / <code>pip-audit</code> / <code>bundle audit</code>. Fix anything <em>high</em> or <em>critical</em> before the test starts. Otherwise the report wastes half its space on known CVEs.</li>
+      <li>Run an SCA scan (Snyk, Dependabot, GitHub Security). Fix obvious misconfigurations.</li>
+      <li>Check your own basics: HTTPS everywhere, secure cookies, CSP headers, HSTS, no debug pages in production, no `.git` exposed, no `.env` in the build.</li>
+      <li>Audit your secrets. <code>git secrets</code> or <code>trufflehog</code> on your repos. Fix any leaks <em>before</em> handing the codebase to anyone.</li>
+    </ul>
+
+    <p>This costs you nothing and dramatically raises the signal-to-noise ratio of the findings.</p>
+
+    <h2>Scoping — the most important conversation</h2>
+
+    <p>Bad pentests start with bad scoping. Get these right:</p>
+
+    <h3>1. Define the target precisely</h3>
+
+    <p>Not "our SaaS product." Specifically: which URLs, which API endpoints, which mobile apps, which infrastructure (cloud account, Kubernetes cluster, VPC). Provide a written inventory. The narrower the scope, the deeper the test goes.</p>
+
+    <h3>2. Pick the depth model</h3>
+
+    <ul>
+      <li><strong>Black-box:</strong> tester knows nothing, simulates external attacker. Tests perimeter and obvious flaws. Misses business-logic issues.</li>
+      <li><strong>Grey-box:</strong> tester has credentials for typical user roles. Tests authenticated flows and privilege escalation. Sweet spot for most SaaS.</li>
+      <li><strong>White-box:</strong> tester has source code access and architecture diagrams. Deepest test. Best ROI for complex business logic.</li>
+    </ul>
+
+    <p>For most B2B SaaS: grey-box with multiple user roles. Add white-box on critical modules (auth, billing, data access).</p>
+
+    <h3>3. Define what's in scope and what's not</h3>
+
+    <p>In scope: web app, API, mobile apps, cloud infra. Out of scope: physical security, social engineering (unless explicitly asked), third-party services you don't control.</p>
+
+    <p>Get this in writing. Saves arguments later.</p>
+
+    <h3>4. Decide on disclosure approach</h3>
+
+    <ul>
+      <li><strong>Standard:</strong> tester reports findings at end of engagement. You fix in your own time.</li>
+      <li><strong>Real-time disclosure:</strong> tester flags critical findings immediately. You can patch during the test. Better for production systems.</li>
+      <li><strong>Continuous:</strong> ongoing engagement with monthly reports. Right for SaaS that ships weekly.</li>
+    </ul>
+
+    <h2>What a real pentest must cover</h2>
+
+    <h3>The OWASP Top 10 (still relevant in 2026)</h3>
+
+    <ol>
+      <li><strong>Broken Access Control</strong> — IDOR, privilege escalation, horizontal access between tenants. Critical for multi-tenant SaaS.</li>
+      <li><strong>Cryptographic Failures</strong> — weak password hashing, secrets in URLs, unencrypted PII at rest.</li>
+      <li><strong>Injection</strong> — SQLi, NoSQLi, command injection, LDAP injection. Less common in 2026 but still happens.</li>
+      <li><strong>Insecure Design</strong> — the category for architecture-level issues that no scanner finds.</li>
+      <li><strong>Security Misconfiguration</strong> — exposed admin panels, default credentials, verbose errors, missing headers.</li>
+      <li><strong>Vulnerable and Outdated Components</strong> — libraries with known CVEs.</li>
+      <li><strong>Identification and Authentication Failures</strong> — weak password policies, broken session management, missing MFA on admin.</li>
+      <li><strong>Software and Data Integrity Failures</strong> — unsigned updates, untrusted CI/CD plugins, deserialization issues.</li>
+      <li><strong>Security Logging and Monitoring Failures</strong> — events not logged, no audit trail, no detection of incidents.</li>
+      <li><strong>Server-Side Request Forgery (SSRF)</strong> — particularly nasty in cloud environments.</li>
+    </ol>
+
+    <h3>SaaS-specific tests beyond OWASP</h3>
+
+    <ul>
+      <li><strong>Multi-tenant isolation.</strong> Can user A from tenant 1 access tenant 2's data via any path? Test IDOR exhaustively.</li>
+      <li><strong>API authentication and rate limiting.</strong> Can someone brute-force endpoints? Are there public endpoints that shouldn't be?</li>
+      <li><strong>Billing and pricing bypass.</strong> Can users access features they didn't pay for? Manipulate quotas?</li>
+      <li><strong>File upload and processing.</strong> Path traversal, server-side rendering exploits, XXE in document parsing.</li>
+      <li><strong>Webhook security.</strong> Are incoming webhooks verified? Outgoing webhooks rate-limited?</li>
+      <li><strong>OAuth and SSO implementations.</strong> Common source of subtle vulnerabilities.</li>
+    </ul>
+
+    <h3>Cloud and infra-specific</h3>
+
+    <ul>
+      <li>IAM permissions audit (overly broad roles, unused privileges, shared keys)</li>
+      <li>S3 / blob storage permissions (public buckets, unintended access)</li>
+      <li>Network segmentation (services exposed beyond intended scope)</li>
+      <li>Secrets in environment variables, CI/CD pipelines, code</li>
+      <li>Container security (base images, runtime privileges)</li>
+      <li>Kubernetes RBAC and network policies (if applicable)</li>
+    </ul>
+
+    <h2>What to demand in the report</h2>
+
+    <p>A useful pentest report has these sections. Reject ones that don't.</p>
+
+    <ol>
+      <li><strong>Executive summary</strong> — written for non-technical readers, 1 page</li>
+      <li><strong>Scope and methodology</strong> — exactly what was tested, what wasn't, and how</li>
+      <li><strong>Findings</strong> — each with: title, severity, CVSS score, business impact (not just technical), reproduction steps, affected components, recommended remediation</li>
+      <li><strong>Proof-of-concept evidence</strong> — screenshots, request/response examples, video where relevant</li>
+      <li><strong>Risk-prioritised remediation plan</strong> — what to fix first, what can wait, what's defensible to accept</li>
+      <li><strong>Re-test offer</strong> — confirming fixes works. Often bundled.</li>
+    </ol>
+
+    <p><strong>What to push back on:</strong> reports padded with informational-severity items that aren't exploitable. Reports that conflate "lack of security header X" with "exploitable vulnerability." Reports without business-context impact. Reports that don't tell you how to fix things.</p>
+
+    <h2>Pricing reality for Indian SaaS pentests</h2>
+
+    <p>Realistic 2026 ranges from competent India-based security firms:</p>
+
+    <table>
+      <thead>
+        <tr><th>Scope</th><th>Typical price</th><th>Duration</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Single web app, grey-box</td><td>₹1.5L–₹3.5L</td><td>1–2 weeks</td></tr>
+        <tr><td>Web + API, grey-box, multiple roles</td><td>₹2.5L–₹5L</td><td>2–3 weeks</td></tr>
+        <tr><td>Web + API + 2 mobile apps</td><td>₹4L–₹7L</td><td>3 weeks</td></tr>
+        <tr><td>Cloud infrastructure audit (AWS/Azure/GCP)</td><td>₹2L–₹6L</td><td>1–2 weeks</td></tr>
+        <tr><td>Full stack: web + API + mobile + cloud</td><td>₹6L–₹12L</td><td>4–6 weeks</td></tr>
+        <tr><td>Continuous (monthly retainer)</td><td>₹80K–₹2L/mo</td><td>Ongoing</td></tr>
+      </tbody>
+    </table>
+
+    <p>Below ₹1L for a real web app pentest is usually a junior with a vulnerability scanner — fine for the first round of cheap-checking, useless for serious findings.</p>
+
+    <h2>How often should you pentest?</h2>
+
+    <ul>
+      <li><strong>Before launch.</strong> Always.</li>
+      <li><strong>Annually.</strong> Minimum for production SaaS handling any sensitive data.</li>
+      <li><strong>After major release.</strong> New features = new attack surface.</li>
+      <li><strong>Before SOC 2 / ISO 27001 audit.</strong> Auditors expect a recent pentest report.</li>
+      <li><strong>Continuous</strong> for any SaaS that ships weekly or handles payment/PHI/financial data.</li>
+    </ul>
+
+    <h2>Acting on findings</h2>
+
+    <p>A pentest report has zero value if nothing happens after. The post-test workflow that works:</p>
+
+    <ol>
+      <li>Within 24 hours: read the executive summary and review critical findings</li>
+      <li>Within a week: assign owners and target dates for critical and high findings</li>
+      <li>Within 30 days: fix all critical findings, most high findings</li>
+      <li>Within 90 days: re-test to confirm fixes</li>
+      <li>Ongoing: include security regression checks in CI/CD for the issues found</li>
+    </ol>
+
+    <p>If your team can't commit to this, you don't need a pentest yet — you need a security plan. Pentests are for organisations ready to fix what they find.</p>
+
+    <p>For more on our security services, see the <a href="/services/cybersecurity/">cybersecurity overview</a>.</p>
+
+  </div>
+
+  <footer class="article-footer">
+    <div class="article-cta-card">
+      <h3>Need a pentest scoped properly? <em>Let's talk.</em></h3>
+      <p>NDA first, scoping call second. You'll know exactly what we'll test, the timeline, and the price before we run a single tool. No clickable PDFs.</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="https://wa.me/918897599624?text=Hi%20XServ%2C%20I%27d%20like%20a%20pentest%20scoping%20call." class="btn btn-primary" target="_blank" rel="noopener">WhatsApp us</a>
+        <a href="tel:+918897599624" class="btn btn-ghost">Call +91 88975 99624</a>
+      </div>
+    </div>
+
+    <h3 style="font-size:13px; letter-spacing:1.6px; text-transform:uppercase; color:var(--text-muted); margin-bottom:18px;">Read next</h3>
+    <div class="related" style="padding:0; border:0;">
+      <div class="grid">
+        <a href="/services/cybersecurity/"><div class="ttl">Cybersecurity services</div><div class="desc">Pentests, audits, SOC 2 / ISO readiness, monitoring.</div></a>
+        <a href="/services/cloud-devops/"><div class="ttl">Cloud & DevOps</div><div class="desc">Secure-by-default infrastructure setup and ongoing SRE.</div></a>
+        <a href="/blog/devops-for-indian-fintech/"><div class="ttl">DevOps for Indian Fintech</div><div class="desc">Compliance-first DevOps playbook for regulated SaaS.</div></a>
+      </div>
+    </div>
+  </footer>
+</article>
+
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div>&copy; 2026 XServ Labs · Hyderabad, India</div>
+  <nav class="foot-links" aria-label="Footer">
+    <a href="/">Home</a><a href="/#services">Services</a><a href="/#products">Products</a><a href="/blog/">Blog</a>
+    <a href="https://wa.me/918897599624" target="_blank" rel="noopener">WhatsApp</a><a href="tel:+918897599624">Call</a>
+  </nav>
+</footer>
+
+<a href="https://wa.me/918897599624?text=Hi%20XServ%2C%20I%27d%20like%20a%20pentest%20scoping%20call." class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.205-.24-.585-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.195 2.105 3.195 5.1 4.485.714.3 1.27.48 1.704.629.714.227 1.365.195 1.88.121.574-.091 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345m-5.446 7.443h-.016c-1.77 0-3.524-.48-5.055-1.38l-.36-.214-3.75.975 1.005-3.645-.239-.375a9.869 9.869 0 0 1-1.516-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 0 0 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411"/></svg>
+</a>
+
+</body>
+</html>

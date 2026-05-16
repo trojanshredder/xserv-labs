@@ -1,10 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="refresh" content="0; url=/">
-<title>Redirecting...</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — XServ Labs</title>
+<meta name="description" content="The page you're looking for has moved or never existed. Head back to xservlabs.com to see what we build.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="canonical" href="https://xservlabs.com/404.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0A0A0A; --text:#FAFAFA; --muted:#888; --accent:#F97316;
+    --border:rgba(255,255,255,0.08); --sans:'Inter',system-ui,sans-serif; --serif:'Instrument Serif',serif;
+  }
+  html,body { height:100%; }
+  body {
+    font-family: var(--sans); background: var(--bg); color: var(--text);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 24px; -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(249,115,22,0.10), transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(6,182,212,0.10), transparent 45%);
+  }
+  .wrap { max-width: 560px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .eyebrow::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--accent); }
+  .code {
+    font-family: var(--serif); font-size: clamp(96px, 18vw, 180px); line-height: 1;
+    background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 16px; font-style: italic;
+  }
+  h1 { font-size: clamp(24px, 4vw, 32px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+  p { color: var(--muted); font-size: 16px; line-height: 1.6; margin-bottom: 32px; }
+  .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  a.btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 12px; text-decoration: none;
+    font-size: 14px; font-weight: 500; transition: all 0.2s ease;
+  }
+  a.primary { background: var(--accent); color: #fff; }
+  a.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(249,115,22,0.35); }
+  a.ghost { color: var(--text); border: 1px solid var(--border); }
+  a.ghost:hover { border-color: rgba(255,255,255,0.25); }
+</style>
 </head>
 <body>
-<p>Redirecting to <a href="/">XServ Labs</a>...</p>
+  <main class="wrap">
+    <div class="eyebrow">Lost in transit</div>
+    <div class="code">404</div>
+    <h1>This page doesn't exist (yet).</h1>
+    <p>The link might be old, the URL mistyped, or we haven't built this page yet. Either way, let's get you back on track.</p>
+    <div class="actions">
+      <a href="/" class="btn primary">Back to home</a>
+      <a href="/#contact" class="btn ghost">Start a project</a>
+    </div>
+  </main>
 </body>
 </html>

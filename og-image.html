@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OG Image Template — XServ Labs (1200×630)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #0A0A0A;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #FAFAFA;
+    -webkit-font-smoothing: antialiased;
+  }
+  .canvas {
+    width: 1200px; height: 630px; position: relative;
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(249,115,22,0.22), transparent 45%),
+      radial-gradient(circle at 90% 90%, rgba(6,182,212,0.18), transparent 50%),
+      radial-gradient(circle at 60% 40%, rgba(168,85,247,0.10), transparent 60%);
+    overflow: hidden;
+  }
+  /* Subtle grid */
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 75%);
+  }
+  .content {
+    position: relative; z-index: 2;
+    padding: 70px 80px;
+    display: flex; flex-direction: column;
+    height: 100%; justify-content: space-between;
+  }
+  .top { display: flex; align-items: center; gap: 18px; }
+  .logo {
+    width: 64px; height: 64px; border-radius: 16px;
+    background: linear-gradient(135deg, #F97316, #FF8533);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 36px;
+    box-shadow: 0 8px 32px rgba(249,115,22,0.4);
+  }
+  .brand {
+    font-size: 26px; font-weight: 700; letter-spacing: -0.02em;
+  }
+  .tagline-tiny {
+    font-size: 13px; color: #888; letter-spacing: 1.5px; text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .middle { flex: 1; display: flex; align-items: center; }
+  .headline {
+    font-size: 78px; line-height: 1.02; font-weight: 700; letter-spacing: -0.035em;
+    max-width: 1000px;
+  }
+  .headline em {
+    font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
+    background: linear-gradient(135deg, #fff 0%, #F97316 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .meta {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .url {
+    font-size: 22px; font-weight: 600; color: #fff;
+  }
+  .sub {
+    font-size: 15px; color: #888; letter-spacing: 1.5px; text-transform: uppercase;
+  }
+  .chips { display: flex; gap: 10px; flex-wrap: wrap; max-width: 600px; justify-content: flex-end; }
+  .chip {
+    padding: 8px 16px; border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 999px; font-size: 14px; color: #aaa; background: rgba(255,255,255,0.04);
+  }
+  /* Accent corner mark */
+  .corner {
+    position: absolute; top: 40px; right: 60px;
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    font-size: 14px; color: #F97316; letter-spacing: 1.5px;
+  }
+  /* Instructions overlay (hide before screenshot) */
+  .instructions {
+    position: fixed; bottom: 10px; left: 10px;
+    background: rgba(0,0,0,0.85); color: #F97316;
+    padding: 14px 18px; border-radius: 10px; font-size: 12px;
+    border: 1px solid #F97316; max-width: 380px; line-height: 1.5;
+    z-index: 1000;
+  }
+  .instructions strong { color: #fff; display: block; margin-bottom: 4px; }
+  .instructions kbd {
+    background: #222; padding: 2px 6px; border-radius: 4px; font-family: monospace;
+    border: 1px solid #444; font-size: 11px;
+  }
+  @media print {
+    .instructions { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <div class="grid"></div>
+  <div class="corner">EST. 2015</div>
+  <div class="content">
+    <div class="top">
+      <div class="logo">X</div>
+      <div>
+        <div class="brand">XServ Labs</div>
+        <div class="tagline-tiny">Hyderabad · India</div>
+      </div>
+    </div>
+
+    <div class="middle">
+      <div class="headline">
+        Software for the<br>
+        <em>industries</em> that move the world.
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="meta">
+        <div class="url">xservlabs.com</div>
+        <div class="sub">A decade of shipping · 24/7 in production</div>
+      </div>
+      <div class="chips">
+        <span class="chip">Custom Software</span>
+        <span class="chip">AI &amp; ML</span>
+        <span class="chip">ERP</span>
+        <span class="chip">Mobile</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="instructions">
+  <strong>How to export as og-image.png</strong>
+  1. In Chrome DevTools, set device size to exactly <strong>1200 × 630</strong> (Cmd/Ctrl+Shift+M, then "Responsive", enter dimensions).<br>
+  2. <kbd>Cmd/Ctrl+Shift+P</kbd> → type "screenshot" → "Capture full size screenshot".<br>
+  3. Rename the PNG to <strong>og-image.png</strong> and place in project root.<br>
+  4. (Optional) Edit the headline in this file to test variants for blog posts, services etc.
+</div>
+
+</body>
+</html>
