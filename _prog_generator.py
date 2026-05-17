@@ -113,6 +113,7 @@ def build_page(p):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/page.css">
+<script src="/assets/js/analytics.js" defer></script>
 
 <script type="application/ld+json">
 {schema_str}

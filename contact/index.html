@@ -100,6 +100,7 @@
         "@type": "Organization",
         "name": "XServ Labs",
         "url": "https://xservlabs.com/",
+        "email": "hello@xservlabs.com",
         "telephone": "+91-88975-99624",
         "address": {
           "@type": "PostalAddress",
@@ -111,6 +112,7 @@
           {
             "@type": "ContactPoint",
             "telephone": "+91-88975-99624",
+            "email": "hello@xservlabs.com",
             "contactType": "customer service",
             "areaServed": ["IN", "US", "AE", "SG", "GB"],
             "availableLanguage": ["English", "Hindi", "Telugu"]
@@ -118,6 +120,7 @@
           {
             "@type": "ContactPoint",
             "telephone": "+91-88975-99624",
+            "email": "hello@xservlabs.com",
             "contactType": "sales",
             "areaServed": ["IN", "US", "AE", "SG", "GB"],
             "availableLanguage": ["English", "Hindi"]
@@ -135,7 +138,8 @@
   ]
 }
 </script>
-</head>
+<script src="/assets/js/analytics.js" defer></script>
+
 <body>
 
 <header class="site-header" role="banner">
@@ -202,11 +206,128 @@
       </div>
       <h3>Email</h3>
       <p>Best for detailed briefs, RFPs, or NDA-first conversations. Replies within one business day.</p>
-      <div class="cc-val">hello@xservlabs.com</div>
+      <a href="mailto:hello@xservlabs.com?subject=Project%20enquiry%20%E2%80%94%20XServ%20Labs" class="cc-val" style="text-decoration:none; color:inherit;">hello@xservlabs.com</a>
     </div>
 
   </div>
 </section>
+
+<!-- ═══════════ CONTACT FORM ═══════════ -->
+<section class="section" style="border-top: 1px solid var(--border);">
+  <div class="label">Or send a detailed brief</div>
+  <h2>Tell us about your project. <em>We'll reply within one business day.</em></h2>
+  <p class="intro">Better for longer briefs, NDA-first conversations, or if WhatsApp isn't your thing. Replies go to <code style="font-family:var(--mono);color:var(--accent);">hello@xservlabs.com</code> &mdash; usually the founder.</p>
+
+  <form id="contact-form" class="xform"
+        action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_FORM_ID"
+        method="POST"
+        data-track-form="contact-form">
+
+    <div class="xform-row">
+      <label>
+        <span class="xform-lbl">Your name</span>
+        <input type="text" name="name" required autocomplete="name" placeholder="Jane Doe">
+      </label>
+      <label>
+        <span class="xform-lbl">Work email</span>
+        <input type="email" name="email" required autocomplete="email" placeholder="jane@yourcompany.com">
+      </label>
+    </div>
+
+    <div class="xform-row">
+      <label>
+        <span class="xform-lbl">Company</span>
+        <input type="text" name="company" autocomplete="organization" placeholder="Your company">
+      </label>
+      <label>
+        <span class="xform-lbl">Phone <span style="color:var(--text-dim);font-weight:400;">(optional)</span></span>
+        <input type="tel" name="phone" autocomplete="tel" placeholder="+91 ...">
+      </label>
+    </div>
+
+    <label class="xform-full">
+      <span class="xform-lbl">What are you trying to build?</span>
+      <textarea name="message" rows="6" required minlength="20" placeholder="A few sentences about the problem, your industry, and roughly when you want it live. The more specific, the better the first call."></textarea>
+    </label>
+
+    <label class="xform-full xform-checkbox">
+      <input type="checkbox" name="nda_required">
+      <span>Sign an NDA before our first call</span>
+    </label>
+
+    <!-- Honeypot — bots fill this in, humans don't see it -->
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+    <!-- Subject line on Formspree side -->
+    <input type="hidden" name="_subject" value="New project enquiry from xservlabs.com">
+
+    <div class="xform-actions">
+      <button type="submit" class="btn btn-primary">Send brief</button>
+      <span class="xform-status" id="xform-status"></span>
+    </div>
+
+    <p style="font-size:13px;color:var(--text-dim);margin-top:14px;">
+      We typically reply within one business day. Your message goes only to our team &mdash; we never share or sell contact data.
+    </p>
+  </form>
+</section>
+
+<style>
+  .xform { max-width: 760px; margin-top: 36px; }
+  .xform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+  .xform label { display: block; }
+  .xform-full { display: block; margin-bottom: 18px; }
+  .xform-lbl { display: block; font-size: 13px; letter-spacing: 0.4px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+  .xform input[type="text"], .xform input[type="email"], .xform input[type="tel"], .xform textarea {
+    width: 100%; padding: 14px 16px; font-family: var(--sans); font-size: 15px;
+    color: var(--text); background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    transition: border-color 0.2s, background 0.2s; resize: vertical;
+  }
+  .xform input:focus, .xform textarea:focus { outline: none; border-color: var(--accent); background: var(--bg-elev); }
+  .xform-checkbox { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .xform-checkbox input { width: 18px; height: 18px; accent-color: var(--accent); }
+  .xform-checkbox span { color: var(--text-muted); font-size: 14.5px; }
+  .xform-actions { margin-top: 8px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .xform-status { font-size: 14px; color: var(--text-muted); }
+  .xform-status.ok { color: var(--green); }
+  .xform-status.err { color: #ef4444; }
+  @media (max-width: 700px) { .xform-row { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  // Progressive enhancement — submits via fetch so user stays on page
+  (function () {
+    var f = document.getElementById('contact-form');
+    if (!f) return;
+    var status = document.getElementById('xform-status');
+    f.addEventListener('submit', function (ev) {
+      // If form action still has the placeholder, fall back to mailto so user isn't stuck
+      if (/REPLACE_WITH_FORMSPREE_FORM_ID/.test(f.action)) {
+        ev.preventDefault();
+        var data = new FormData(f);
+        var body = encodeURIComponent(
+          'From: ' + (data.get('name') || '') + ' <' + (data.get('email') || '') + '>\n' +
+          'Company: ' + (data.get('company') || '') + '\n' +
+          'Phone: ' + (data.get('phone') || '') + '\n' +
+          'NDA: ' + (data.get('nda_required') ? 'Yes' : 'No') + '\n\n' +
+          (data.get('message') || '')
+        );
+        window.location.href = 'mailto:hello@xservlabs.com?subject=' + encodeURIComponent('Project enquiry from xservlabs.com') + '&body=' + body;
+        if (status) { status.textContent = 'Opening your email client…'; status.className = 'xform-status'; }
+        return;
+      }
+      ev.preventDefault();
+      if (status) { status.textContent = 'Sending…'; status.className = 'xform-status'; }
+      fetch(f.action, { method: 'POST', body: new FormData(f), headers: { 'Accept': 'application/json' } })
+        .then(function (r) {
+          if (r.ok) { f.reset(); if (status) { status.textContent = '✓ Sent — we’ll reply within one business day.'; status.className = 'xform-status ok'; } }
+          else { throw new Error('Form error'); }
+        })
+        .catch(function () {
+          if (status) { status.textContent = '✗ Something went wrong. WhatsApp us instead?'; status.className = 'xform-status err'; }
+        });
+    });
+  })();
+</script>
 
 <section class="section" style="border-top: 1px solid var(--border);">
   <div class="label">Our office</div>
