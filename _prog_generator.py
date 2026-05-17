@@ -132,12 +132,12 @@ def build_page(p):
       <span class="logo-text">XServ Labs</span>
     </a>
     <ul class="nav-links">
-      <li><a href="/#about">About</a></li>
+      <li><a href="/about/">About</a></li>
       <li><a href="/#services">Services</a></li>
       <li><a href="/#products">Products</a></li>
       <li><a href="/#industries">Industries</a></li>
       <li><a href="/blog/">Blog</a></li>
-      <li class="nav-cta-li"><a href="/#contact" class="nav-cta">Get in Touch</a></li>
+      <li class="nav-cta-li"><a href="/contact/" class="nav-cta">Get in Touch</a></li>
     </ul>
   </nav>
 </header>
