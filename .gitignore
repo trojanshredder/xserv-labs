@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+_aud_*
+_audit_*
+_audit*
+_new_*
+_screenshot.js
