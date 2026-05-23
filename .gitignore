@@ -8,3 +8,8 @@ _audit_*
 _audit*
 _new_*
 _screenshot.js
+_v2_*
+_check_*
+node_modules/
+package-lock.json
+package.json
