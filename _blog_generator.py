@@ -209,7 +209,7 @@ def build_article(p):
   <div>&copy; 2026 XServ Labs · Hyderabad, India</div>
   <nav class="foot-links" aria-label="Footer">
     <a href="/">Home</a><a href="/#services">Services</a><a href="/#products">Products</a><a href="/blog/">Blog</a>
-    <a href="https://wa.me/918897599624" target="_blank" rel="noopener">WhatsApp</a><a href="tel:+918897599624">Call</a>
+    <a href="/privacy-policy/">Privacy</a><a href="/terms-of-service/">Terms</a><a href="https://wa.me/918897599624" target="_blank" rel="noopener">WhatsApp</a><a href="tel:+918897599624">Call</a>
   </nav>
 </footer>
 
